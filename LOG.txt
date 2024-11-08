@@ -1,6 +1,8 @@
 Week 45:
-Thursday:
+Thursday: Read introductory paper (ProbVLM: Probabilistic Adapter for Frozen Vision-Language Models).
+Kick off meeting. 
 
-Friday:
-
+Friday: Set up of git and slack for communication. Started reading follow up paper (A review of uncertainty 
+quantification in deep learning: Techniques applications and challenges). Created report template. Started 
+creating presentation regarding summary of the introductory papers for meeting next Wednesday.
 
