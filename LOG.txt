@@ -6,3 +6,7 @@ Friday: Set up of git and slack for communication. Started reading follow up pap
 quantification in deep learning: Techniques applications and challenges). Created report template. Started 
 creating presentation regarding summary of the introductory papers for meeting next Wednesday.
 
+Week 46:
+Monday: Finished the presentation summarizing the papers. Started structuring what to mention in what sections in the report.
+
+Tuesday: Started writing introduction and theory in the report. 
