@@ -10,3 +10,11 @@ Week 46:
 Monday: Finished the presentation summarizing the papers. Started structuring what to mention in what sections in the report.
 
 Tuesday: Started writing introduction and theory in the report. 
+
+Wednesday:	
+	Meeting with Prashant where we presented the two papers mentioned above and discussed what we want to research more about.
+	Need to decide if we e.g. want to do benchmark testing or/and see if we can both find the epistemic uncertainty from the deterministic 
+	embeddings and also find the aleatoric uncertainty from the data and in which field we want to focus, continue on CLIP or try to find 
+	uncertainties in e.g. healthcare. 
+
+	
