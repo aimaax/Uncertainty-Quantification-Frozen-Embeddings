@@ -17,4 +17,21 @@ Wednesday:
 	embeddings and also find the aleatoric uncertainty from the data and in which field we want to focus, continue on CLIP or try to find 
 	uncertainties in e.g. healthcare. 
 
-	
+Thursday:
+    Continue reading on related papers regarding choice of adapter. Looking into how to 
+    separate aleatoric and epistemic uncertainties. Looking in to the Bayes By Backprop (BBB)
+    adapter and how it could be implemented for the CLIP model. Looking into the ProbVLM code
+    to understand how it works. Preparing questions and suggestions on how to move the project
+    forward for a meeting with Prashant and Li tomorrow.
+
+Friday:
+    Meeting with Prashant and Li. Discussing how aleatoric and epistemic uncertainties work and 
+    can be separated. Discussing the choice of adapter. Decided that we should start by implementing 
+    the BBB BN. A second step would be to implement a separate term for the aleatoric uncertainty
+    if the ProbVLM approach seems inadequate. Further down the line a benchmark against the ProbVLM
+    approach would be implemented and visualizations with attention instead of diffusion.
+
+    Preparing the Alvis environment and begin looking into how to implement the BBB. Looking into
+    Bayesian Network layers using PyTorch.
+
+
