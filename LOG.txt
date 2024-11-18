@@ -34,4 +34,5 @@ Friday:
     Preparing the Alvis environment and begin looking into how to implement the BBB. Looking into
     Bayesian Network layers using PyTorch.
 
-
+Week 47:
+Monday: Preparing the alvis environment. Configuring VPN, and getting familiar with alvis. 
