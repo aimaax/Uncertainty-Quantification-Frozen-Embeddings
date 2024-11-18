@@ -1,3 +1,9 @@
+"""
+!source ../UQ_env/bin/activate
+!python -m ipykernel install --user --name=UQ_env --display-name="My Python"
+!pip install --user -r ../requirements_pip.txt
+
+"""
 import os
 
 from os.path import join as ospj
