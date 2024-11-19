@@ -11,7 +11,7 @@ module load PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
 module load Fiona/1.9.5-foss-2023a 
 module load Fire/2017.1
 module load NLTK/3.8.1
-module load ftfy # not found but the code runs :/?
+module --ignore_cache load ftfy # not found but the code runs :/?
 
-#/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/main.py
-python3 main.py
+
+python3 ../ds/vocab.py ../../datasets/ coco --threshold=5
