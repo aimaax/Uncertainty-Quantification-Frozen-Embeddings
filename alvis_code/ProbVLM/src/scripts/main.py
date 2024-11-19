@@ -141,15 +141,15 @@ def eval_ProbVLM(
     return mean_mae
 
 def main():
-    dataset = "COCO"
-    data_dir = ospj("../datasets", dataset)
+    dataset = "coco"
+    data_dir = ospj("../datasets/", dataset)
     dataloader_config = mch({
         "batch_size":64,
         "random_erasing_prob":0,
         "traindata_shuffle":True
-    )}
+    })
 
-    loaders,vocab = load_data_loader(dataset, datadir, dataloader_config)
+    loaders,vocab = load_data_loader(dataset, data_dir, dataloader_config)
     coco_train_loader, coco_valid_loader, coco_test_loader = loaders['train'], loaders['val'], loaders['test']
 
     CLIP_Net = load_model(device='cuda', model_path = None)
