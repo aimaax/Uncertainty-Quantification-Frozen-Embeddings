@@ -1,21 +1,25 @@
 Week 45:
-Thursday: Read introductory paper (ProbVLM: Probabilistic Adapter for Frozen Vision-Language Models).
-Kick off meeting. 
+Thursday: 
+    Read introductory paper (ProbVLM: Probabilistic Adapter for Frozen Vision-Language Models).
+    Kick off meeting. 
 
-Friday: Set up of git and slack for communication. Started reading follow up paper (A review of uncertainty 
-quantification in deep learning: Techniques applications and challenges). Created report template. Started 
-creating presentation regarding summary of the introductory papers for meeting next Wednesday.
+Friday: 
+    Set up of git and slack for communication. Started reading follow up paper (A review of uncertainty 
+    quantification in deep learning: Techniques applications and challenges). Created report template. Started 
+    creating presentation regarding summary of the introductory papers for meeting next Wednesday.
 
 Week 46:
-Monday: Finished the presentation summarizing the papers. Started structuring what to mention in what sections in the report.
+Monday: 
+    Finished the presentation summarizing the papers. Started structuring what to mention in what sections in the report.
 
-Tuesday: Started writing introduction and theory in the report. 
+Tuesday: 
+    Started writing introduction and theory in the report. 
 
 Wednesday:	
-	Meeting with Prashant where we presented the two papers mentioned above and discussed what we want to research more about.
-	Need to decide if we e.g. want to do benchmark testing or/and see if we can both find the epistemic uncertainty from the deterministic 
-	embeddings and also find the aleatoric uncertainty from the data and in which field we want to focus, continue on CLIP or try to find 
-	uncertainties in e.g. healthcare. 
+    Meeting with Prashant where we presented the two papers mentioned above and discussed what we want to research more about.
+    Need to decide if we e.g. want to do benchmark testing or/and see if we can both find the epistemic uncertainty from the deterministic 
+    embeddings and also find the aleatoric uncertainty from the data and in which field we want to focus, continue on CLIP or try to find 
+    uncertainties in e.g. healthcare. 
 
 Thursday:
     Continue reading on related papers regarding choice of adapter. Looking into how to 
@@ -35,4 +39,14 @@ Friday:
     Bayesian Network layers using PyTorch.
 
 Week 47:
-Monday: Preparing the alvis environment. Configuring VPN, and getting familiar with alvis. 
+Monday: 
+    Preparing the alvis environment. Configuring VPN, and getting familiar with alvis.  
+
+Tuesday:
+    Downloading the COCO datasets to train the CLIP and ProbVLM model. Configuring the file structures and the datasets.
+    Implementing a simple BNN as a proof of concept. Preparing a script that can be run as a batch job.
+    Since downloading, extracting and moving the data to the cluster takes a long time we decided to write on the report
+    and try submitting the batch job tomrorrow, so the data can load over the night.
+
+
+
