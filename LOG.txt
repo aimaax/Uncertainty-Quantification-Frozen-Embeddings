@@ -41,12 +41,19 @@ Friday:
 Week 47:
 Monday: 
     Preparing the alvis environment. Configuring VPN, and getting familiar with alvis.  
+    Implementing a simple BNN as a proof of concept.
 
 Tuesday:
     Downloading the COCO datasets to train the CLIP and ProbVLM model. Configuring the file structures and the datasets.
-    Implementing a simple BNN as a proof of concept. Preparing a script that can be run as a batch job.
+    Preparing a script that can be run as a batch job.
     Since downloading, extracting and moving the data to the cluster takes a long time we decided to write on the report
     and try submitting the batch job tomrorrow, so the data can load over the night.
 
+Wednesday:
 
+
+Thursday:
+
+
+Friday:
 
