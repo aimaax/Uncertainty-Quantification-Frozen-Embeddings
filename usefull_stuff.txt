@@ -1,0 +1,7 @@
+Interactive online alvis:
+    https://portal.c3se.chalmers.se/pun/sys/dashboard/
+
+How to run batch jobs:
+
+How to install libraries:
+    source the virtual environment and pip install as usual
