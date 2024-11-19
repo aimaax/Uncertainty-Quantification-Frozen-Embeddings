@@ -49,6 +49,9 @@ Tuesday:
     Since downloading, extracting and moving the data to the cluster takes a long time we decided to write on the report
     and try submitting the batch job tomrorrow, so the data can load over the night.
 
+    On evening data was finished loaded so bash files were made for creating the vocab (done) and 
+    for training a simple BBB implementation (not done, some small errors for import errors).
+
 Wednesday:
 
 
