@@ -28,7 +28,7 @@ def train_ProbVLM(
     device='cuda',
     dtype=torch.cuda.FloatTensor(),
     init_lr=1e-4,
-    num_epochs=2,
+    num_epochs=100,
     eval_every=1,
     ckpt_path='../ckpt/ProbVLM',
     cross_modal_lambda=1e-4,
@@ -55,7 +55,7 @@ def train_ProbVLM(
         BayesCap_Net.train()
         with tqdm(train_loader, unit='batch') as tepoch:
             for (idx, batch) in enumerate(tepoch):
-                if idx>2000:
+                if idx>500:
                     break
                 tepoch.set_description('Epoch {}'.format(eph))
                 ##
@@ -175,11 +175,19 @@ def main():
             device='cuda',
             dtype=torch.cuda.FloatTensor,
             init_lr=8e-5,
-            num_epochs=500,
-            eval_every=5,
+            num_epochs=2,
+            eval_every=1,
             ckpt_path = "../ckpt/ProbVLM_Net",
             T1=1e0,
             T2=1e-4
+    )
+
+    eval_ProbVLM(
+        CLIP_Net,
+        ProbVLM_Net,
+        coco_valid_loader,
+        device='cuda',
+        dtype=torch.cuda.FloatTensor,
     )
 
 
