@@ -127,7 +127,8 @@ def load_data_loader(dataset, data_dir, dataloader_config):
         loaders = prepare_loaders(
             dataloader_config,
             dataset_root=data_dir,
-            vocab_path='ds/vocabs/coco_vocab.pkl')
+            vocab_path="/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl")
+
     return loaders
 
 def load_model(device, model_path=None):

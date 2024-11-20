@@ -9,7 +9,7 @@ import torchbnn as bnn
 
 import clip
 from tqdm import tqdm
-from utils_lavis import *
+from utils import *
 
 
 class BayesCap_MLP(nn.Module): # Edited
@@ -30,7 +30,7 @@ class BayesCap_MLP(nn.Module): # Edited
         hid_dim=512, 
         num_layers=1, 
         prior_mu=0.5,
-        prior_sigma=0.1
+        prior_sigma=2
     ):
         super(BayesCap_MLP, self).__init__()
         mod = []
@@ -108,8 +108,8 @@ class BayesCLIP(nn.Module):
         for param in self.clip_model.parameters():
             param.requires_grad = False
 
-        self.img_BayesCap = BayesCap_MLP(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.5, prior_sigma=0.1).to(device)
-        self.txt_BayesCap = BayesCap_MLP(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.5, prior_sigma=0.1).to(device)
+        self.img_BayesCap = BayesCap_MLP(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.5, prior_sigma=2).to(device)
+        self.txt_BayesCap = BayesCap_MLP(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.5, prior_sigma=2).to(device)
 
     def forward(self, i_inputs, t_inputs):
         i_features, t_features = self.clip_model(i_inputs, t_inputs)
@@ -128,7 +128,7 @@ class BayesCap_for_CLIP(nn.Module): # Edited
         hid_dim=256,
         num_layers=3,
         prior_mu=0.5,
-        prior_sigma=0.,
+        prior_sigma=2,
     ):
         super(BayesCap_for_CLIP, self).__init__()
         self.img_BayesCap = BayesCap_MLP(inp_dim=inp_dim, out_dim=out_dim, hid_dim=hid_dim, num_layers=num_layers, prior_mu=prior_mu, prior_sigma=prior_sigma)

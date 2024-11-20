@@ -16,8 +16,8 @@ from pycocotools.coco import COCO
 ANNOTATIONS = {
     'mrw': ['mrw-v1.0.json'],
     'tgif': ['tgif-v1.0.tsv'],
-    'coco': ['annotations/captions_train2014.json',
-             'annotations/captions_val2014.json'],
+    'coco': ['../../datasets/coco/annotations/captions_train2014.json',
+             '../../datasets/coco/annotations/captions_val2014.json'],
 }
 
 
@@ -36,11 +36,15 @@ class Vocabulary(object):
             self.idx += 1
 
     def load_from_pickle(self, data_path):
+        print(data_path)
         with open(data_path, 'rb') as fin:
             data = pickle.load(fin)
-        self.idx = data['idx']
-        self.word2idx = data['word2idx']
-        self.idx2word = data['idx2word']
+        #self.idx = data['idx']
+        #self.word2idx = data['word2idx']
+        #self.idx2word = data['idx2word']
+        self.idx = data.idx
+        self.word2idx = data.word2idx
+        self.idx2word = data.idx2word
 
     def __call__(self, word):
         if word not in self.word2idx:

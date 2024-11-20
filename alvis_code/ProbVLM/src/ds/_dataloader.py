@@ -360,15 +360,15 @@ def _get_coco_loader(image_root,
 def _get_coco_file_paths(dataset_root):
     """Select proper train / val classes and omit id files.
     """
-    train_ids = np.load('./ds/annotations/coco_train_ids.npy')
-    train_extra_ids = np.load('./ds/annotations/coco_restval_ids.npy')
-    val_ids = np.load('./ds/annotations/coco_dev_ids.npy')[:5000]
-    te_ids = np.load('./ds/annotations/coco_test_ids.npy')
+    train_ids = np.load('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco/annotations/coco_train_ids.npy')
+    train_extra_ids = np.load('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco/annotations/coco_restval_ids.npy')
+    val_ids = np.load('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco/annotations/coco_dev_ids.npy')[:5000]
+    te_ids = np.load('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco/annotations/coco_test_ids.npy')
 
 #     image_root = os.path.join(dataset_root, 'images/trainval35k')
-    image_root = os.path.join(dataset_root, 'images/tmp') # train + valid
-    train_ann = os.path.join(dataset_root, 'annotations/annotations/captions_train2014.json')
-    val_ann = os.path.join(dataset_root, 'annotations/annotations/captions_val2014.json')
+    image_root = os.path.join('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco') # train + valid
+    train_ann = os.path.join('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco/annotations/captions_train2014.json')
+    val_ann = os.path.join('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/datasets/coco/annotations/captions_val2014.json')
 
     return train_ids, train_extra_ids, val_ids, te_ids, image_root, train_ann, val_ann
 

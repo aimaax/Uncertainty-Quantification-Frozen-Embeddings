@@ -1,0 +1,34 @@
+This job can be monitored from: https://job.c3se.chalmers.se/alvis/3150874
+Lmod has detected the following error: The following module(s) are unknown:
+"ftfy"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "ftfy"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/scripts/main.py:27: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at /dev/shm/PyTorch/2.1.2/foss-2023a-CUDA-12.1.1/pytorch-v2.1.2/torch/csrc/tensor/python_tensor.cpp:83.)
+  dtype=torch.cuda.FloatTensor(),
+Traceback (most recent call last):
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/scripts/main.py", line 184, in <module>
+    main()
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/scripts/main.py", line 154, in main
+    loaders,vocab = load_data_loader(dataset, data_dir, dataloader_config)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/utils.py", line 127, in load_data_loader
+    loaders = prepare_loaders(
+              ^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/_dataloader.py", line 394, in prepare_coco_dataloaders
+    vocab = load_vocab(vocab_path)
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/_dataloader.py", line 178, in load_vocab
+    vocab.load_from_pickle(vocab_path)
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocab.py", line 41, in load_from_pickle
+    self.idx = data['idx']
+               ~~~~^^^^^^^
+TypeError: 'Vocabulary' object is not subscriptable
+/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/scripts
