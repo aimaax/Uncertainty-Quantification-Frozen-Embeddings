@@ -5,6 +5,7 @@ from os.path import expanduser
 from munch import Munch as mch
 from tqdm import tqdm_notebook
 import numpy as np
+import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import utils
@@ -247,8 +248,92 @@ def load_and_evaluate_with_uncertainty(
     return metrics
 
 
+def analyze_eval_results(eval_results, n_bins=10):
+    """
+    Analyze evaluation results, including recall scores and uncertainty metrics.
+    
+    Args:
+        eval_results (dict): Output from eval_ProbVLM_with_uncertainty, including:
+            - 'mean_mse': Mean MSE of evaluation.
+            - 'mean_mae': Mean MAE of evaluation.
+            - 'recall_scores': Dictionary of recall scores.
+            - 'i_bins': Uncertainty bins for images.
+            - 't_bins': Uncertainty bins for text.
+        n_bins (int): Number of bins used in uncertainty analysis.
+    """
+    mean_mse = eval_results['mean_mse']
+    mean_mae = eval_results['mean_mae']
+    recall_scores = eval_results.get("recall_scores", [])
+    recall_ks = [1, 5, 10]  # Define recall@k values corresponding to your scores
+    print(f"Recall Scores: {recall_scores} (Type: {type(recall_scores)})")
+    i_bins = eval_results['i_bins']
+    t_bins = eval_results['t_bins']
+
+    print("=== Analysis of Evaluation Results ===")
+    print(f"Mean MSE: {mean_mse:.4f}")
+    print(f"Mean MAE: {mean_mae:.4f}")
+    print("Recall Scores:")
+    print("Recall Scores:", recall_scores)
+    print(f"Recall Scores: {recall_scores} (Type: {type(recall_scores)})")
+    for k, score in zip(recall_ks, recall_scores):
+        print(f"  Recall@{k}: {score:.4f}")
+
+    # Visualizing recall scores
+    plt.bar(recall_ks, recall_scores, color='skyblue', alpha=0.8)
+    plt.xlabel("Recall@K", fontsize=12)
+    plt.ylabel("Recall Score", fontsize=12)
+    plt.title("Recall Scores by K", fontsize=14)
+    plt.xticks(recall_ks)  # Use recall_ks for x-axis ticks
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.savefig("recall_plot.png", dpi=300, bbox_inches='tight')
+
+    # Analyzing uncertainty bins
+    def plot_uncertainty_bins(bins, title):
+        print("Bins content:", bins)
+        avg_unc = [np.mean(bin['uncertainty']) for bin in bins]
+        avg_perf = [np.mean(bin['performance']) for bin in bins]
+        n_samples = [len(bin['uncertainty']) for bin in bins]
+
+        fig, ax1 = plt.subplots(figsize=(8, 6))
+
+        ax1.bar(range(n_bins), n_samples, color='gray', alpha=0.5, label='Number of Samples')
+        ax1.set_xlabel("Uncertainty Bin", fontsize=12)
+        ax1.set_ylabel("Number of Samples", fontsize=12)
+        ax1.set_xticks(range(n_bins))
+        ax1.legend(loc="upper left")
+
+        ax2 = ax1.twinx()
+        ax2.plot(range(n_bins), avg_unc, color='blue', marker='o', label='Average Uncertainty')
+        ax2.plot(range(n_bins), avg_perf, color='red', marker='s', label='Average Performance')
+        ax2.set_ylabel("Average Value", fontsize=12)
+        ax2.legend(loc="upper right")
+
+        plt.title(title, fontsize=14)
+        plt.grid(axis='x', linestyle='--', alpha=0.7)
+        plt.show()
+
+    print("\nAnalyzing Image Uncertainty Bins...")
+    plot_uncertainty_bins(i_bins, title="Image Uncertainty vs. Performance")
+
+    print("\nAnalyzing Text Uncertainty Bins...")
+    plot_uncertainty_bins(t_bins, title="Text Uncertainty vs. Performance")
+
+    # Highlight key insights
+    print("\n=== Key Insights ===")
+    print("1. Observe the trend between uncertainty and performance:")
+    print("   - If performance drops in high-uncertainty bins, the model struggles with uncertain predictions.")
+    print("   - Steady performance across bins indicates robustness to uncertainty.")
+    print("2. Check sample distribution across bins:")
+    print("   - Uneven distribution may indicate imbalanced data or domain-specific challenges.")
+    print("3. Compare recall scores:")
+    print("   - High recall@1 but low recall@10 suggests precision issues in retrieval.")
+    print("   - Consistent recall across Ks indicates good retrieval diversity.")
+
+
+
 def main():
-    load_and_evaluate()
+    eval_results = load_and_evaluate_with_uncertainty()
+    analyze_eval_results(eval_results)
 
 
 if __name__ == "__main__":
