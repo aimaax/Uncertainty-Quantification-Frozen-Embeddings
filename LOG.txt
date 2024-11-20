@@ -50,7 +50,8 @@ Tuesday:
     and try submitting the batch job tomrorrow, so the data can load over the night.
 
 Wednesday:
-
+    Managed to get the whole ProbVLM pipeline to work on alvis (alot of debugging). 
+    Tried training and evaluating a simple BNN which is working. 
 
 Thursday:
 
