@@ -97,52 +97,7 @@ def train_ProbVLM(
                 score = curr_score
                 torch.save(BayesCap_Net.state_dict(), ckpt_path+'_best.pth')
     optim_scheduler.step()
-    
-    
-def eval_ProbVLM(
-    CLIP_Net,
-    BayesCap_Net,
-    eval_loader,
-    device='cuda',
-    dtype=torch.cuda.FloatTensor,
-):
-    CLIP_Net.to(device)
-    CLIP_Net.eval()
-    BayesCap_Net.to(device)
-    BayesCap_Net.eval()
 
-    mean_mse = 0
-    mean_mae = 0
-    num_imgs = 0
-    list_error = []
-    list_var = []
-    with tqdm(eval_loader, unit='batch') as tepoch:
-        for (idx, batch) in enumerate(tepoch):
-            tepoch.set_description('Validating ...')
-            ##
-            xI, xT  = batch[0].to(device), batch[1].to(device)
-            # xI, xT = xI.type(dtype), xT.type(dtype)
-            
-            # pass them through the network
-            with torch.no_grad():
-                xfI, xfT = CLIP_Net(xI, xT)
-                (img_mu, img_1alpha, img_beta), (txt_mu, txt_1alpha, txt_beta) = BayesCap_Net(xfI, xfT)
-                
-            n_batch = img_mu.shape[0]
-            for j in range(n_batch):
-                num_imgs += 1
-                mean_mse += emb_mse(img_mu[j], xfI[j]) + emb_mse(txt_mu[j], xfT[j])
-                mean_mae += emb_mae(img_mu[j], xfI[j]) + emb_mae(txt_mu[j], xfT[j])
-            ##
-        mean_mse /= num_imgs
-        mean_mae /= num_imgs
-        print(
-            'Avg. MSE: {} | Avg. MAE: {}'.format
-            (
-                mean_mse, mean_mae 
-            )
-        )
-    return mean_mae
 
 def main():
     dataset = "coco"
@@ -163,7 +118,6 @@ def main():
             out_dim = 512,
             hid_dim = 256,
             num_layers=3
-            #p_drop=0.05,
     )
 
     train_ProbVLM(
@@ -180,14 +134,6 @@ def main():
             ckpt_path = "../ckpt/ProbVLM_Net",
             T1=1e0,
             T2=1e-4
-    )
-
-    eval_ProbVLM(
-        CLIP_Net,
-        ProbVLM_Net,
-        coco_valid_loader,
-        device='cuda',
-        dtype=torch.cuda.FloatTensor,
     )
 
 
