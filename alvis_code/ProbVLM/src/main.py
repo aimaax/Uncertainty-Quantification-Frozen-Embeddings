@@ -7,6 +7,7 @@ from tqdm import tqdm_notebook
 import numpy as np
 import torch
 import torch.nn as nn
+import time
 
 import clip
 import ds 
@@ -47,9 +48,15 @@ def train_ProbVLM(
         lr=init_lr
     )
     optim_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, num_epochs)
+    
+    # early stopping and adaptive learning rate
+    patience = 8
+    early_stop_counter = 0
 
     score = 1e8
     all_loss = []
+    start_time = time.time()
+
     for eph in range(num_epochs):
         eph_loss = 0
         BayesCap_Net.train()
@@ -82,6 +89,7 @@ def train_ProbVLM(
             eph_loss /= len(train_loader)
             all_loss.append(eph_loss)
             print('Avg. loss: {}'.format(eph_loss))
+
         # evaluate and save the models
         torch.save(BayesCap_Net.state_dict(), ckpt_path+'_last.pth')
         if eph%eval_every == 0:
@@ -96,7 +104,17 @@ def train_ProbVLM(
             if curr_score <= score:
                 score = curr_score
                 torch.save(BayesCap_Net.state_dict(), ckpt_path+'_best.pth')
-    optim_scheduler.step()
+                early_stop_counter = 0
+                best_epoch = eph
+            else: 
+                early_stop_counter += 1
+
+            if early_stop_counter >= patience:
+                print(f"Early stopping triggered at epoch {eph}. Best score: {score} at epoch {best_epoch}.")
+        optim_scheduler.step()
+    
+    end_time = time.time()
+    print("Total training time: ", end_time - start_time)
 
 
 def main():
