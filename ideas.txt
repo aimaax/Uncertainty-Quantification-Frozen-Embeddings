@@ -1,0 +1,3 @@
+downstream task: captioning, compare probvlm vs bbb
+
+timing the training and evaluation

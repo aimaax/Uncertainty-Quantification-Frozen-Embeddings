@@ -54,6 +54,18 @@ Wednesday:
     Tried training and evaluating a simple BNN which is working. 
 
 Thursday:
+    Meeting with Prashant and collegues. Discussed our implementation, choice of loss function.
+    Discussing next steps. The next steps are to train the entire ProbVLM and our BBB model on alvis.
+    We are first gonna implement early stopping, adaptive learning rate, change the priors according
+    to documentation. Then we are gonna train both models and time them (that is important so we can
+    compare the computational complexities of both models, ours should be much faster than ProbVLM
+    since they are utilizing drop-out which is a quite expensive operation). 
+
+    We also discussed how we should evaluate our model. One thing to just sanity check is to check if
+    out of distribution samples have higher uncertainties than in distribution samples. We could 
+    also produce the roc recall-uncertainty curves to compare with probvlm. For the real evaluation
+    we discussed using a downstream task such as captioning, or using guided attention, so we can 
+    compare the methods on something real.
 
 
 Friday:
