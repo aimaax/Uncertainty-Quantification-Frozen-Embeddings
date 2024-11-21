@@ -224,6 +224,7 @@ def get_features_uncer_ProbVLM(
     CLIP_Net,
     BayesCap_Net,
     t_loader,
+    device='cuda'
 ):
     r_dict= {
         'i_f': [],

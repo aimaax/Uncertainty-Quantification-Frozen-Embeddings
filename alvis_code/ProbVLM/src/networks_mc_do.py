@@ -11,7 +11,7 @@ from tqdm import tqdm
 from utils import *
 
 
-class BayesCap_MLP(nn.Module):
+class BayesCap_MLP_ProbVLM(nn.Module):
     '''
     Baseclass to create a simple MLP
     Inputs
@@ -85,7 +85,7 @@ class BayesCap_MLP(nn.Module):
 
 
 
-class BayesCLIP(nn.Module):
+class BayesCLIP_ProbVLM(nn.Module):
     def __init__(
         self,
         model_path=None,
@@ -109,7 +109,7 @@ class BayesCLIP(nn.Module):
         return (img_mu, img_1alpha, img_beta), (txt_mu, txt_1alpha, txt_beta), (i_features, t_features)
 
 
-class BayesCap_for_CLIP(nn.Module):
+class BayesCap_for_CLIP_ProbVLM(nn.Module):
     def __init__(
         self,
         inp_dim=512,
