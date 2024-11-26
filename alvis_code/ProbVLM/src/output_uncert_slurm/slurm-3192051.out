@@ -1,660 +1,0 @@
-This job can be monitored from: https://job.c3se.chalmers.se/alvis/3192051
-Lmod has detected the following error: The following module(s) are unknown:
-"ftfy"
-
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "ftfy"
-
-Also make sure that all modulefiles written in TCL start with the string
-#%Module
-
-
-
-/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 32 worker processes in total. Our suggested max number of worker in current system is 16, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
-  warnings.warn(_create_warning_msg(
-/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl
-creating index...
-index created!
-Loading COCO Caption: n_images 113287 n_captions 566435...
-loading annotations into memory...
-Done (t=0.24s)
-creating index...
-index created!
-Loading COCO Caption: n_images 1000 n_captions 5000...
-loading annotations into memory...
-Done (t=0.22s)
-creating index...
-index created!
-Loading COCO Caption: n_images 5000 n_captions 25000...
-Loading checkpoint from ../ckpt/BBB_woKL_Net_best.pth
-  0%|          | 0/313 [00:00<?, ?batch/s]Validating ...:   0%|          | 0/313 [00:02<?, ?batch/s]Validating ...:   0%|          | 1/313 [00:03<15:48,  3.04s/batch]Validating ...:   0%|          | 1/313 [00:03<15:48,  3.04s/batch]Validating ...:   0%|          | 1/313 [00:03<15:48,  3.04s/batch]Validating ...:   1%|          | 3/313 [00:03<04:22,  1.18batch/s]Validating ...:   1%|          | 3/313 [00:03<04:22,  1.18batch/s]Validating ...:   1%|          | 3/313 [00:03<04:22,  1.18batch/s]Validating ...:   2%|▏         | 5/313 [00:03<02:19,  2.21batch/s]Validating ...:   2%|▏         | 5/313 [00:03<02:19,  2.21batch/s]Validating ...:   2%|▏         | 5/313 [00:03<02:19,  2.21batch/s]Validating ...:   2%|▏         | 5/313 [00:03<02:19,  2.21batch/s]Validating ...:   3%|▎         | 8/313 [00:03<01:13,  4.17batch/s]Validating ...:   3%|▎         | 8/313 [00:03<01:13,  4.17batch/s]Validating ...:   3%|▎         | 8/313 [00:03<01:13,  4.17batch/s]Validating ...:   3%|▎         | 8/313 [00:03<01:13,  4.17batch/s]Validating ...:   4%|▎         | 11/313 [00:03<00:47,  6.42batch/s]Validating ...:   4%|▎         | 11/313 [00:03<00:47,  6.42batch/s]Validating ...:   4%|▎         | 11/313 [00:03<00:47,  6.42batch/s]Validating ...:   4%|▎         | 11/313 [00:03<00:47,  6.42batch/s]Validating ...:   4%|▍         | 14/313 [00:03<00:33,  8.85batch/s]Validating ...:   4%|▍         | 14/313 [00:03<00:33,  8.85batch/s]Validating ...:   4%|▍         | 14/313 [00:03<00:33,  8.85batch/s]Validating ...:   4%|▍         | 14/313 [00:03<00:33,  8.85batch/s]Validating ...:   5%|▌         | 17/313 [00:03<00:26, 11.32batch/s]Validating ...:   5%|▌         | 17/313 [00:03<00:26, 11.32batch/s]Validating ...:   5%|▌         | 17/313 [00:03<00:26, 11.32batch/s]Validating ...:   5%|▌         | 17/313 [00:03<00:26, 11.32batch/s]Validating ...:   6%|▋         | 20/313 [00:04<00:21, 13.66batch/s]Validating ...:   6%|▋         | 20/313 [00:04<00:21, 13.66batch/s]Validating ...:   6%|▋         | 20/313 [00:04<00:21, 13.66batch/s]Validating ...:   6%|▋         | 20/313 [00:04<00:21, 13.66batch/s]Validating ...:   7%|▋         | 23/313 [00:04<00:18, 15.69batch/s]Validating ...:   7%|▋         | 23/313 [00:04<00:18, 15.69batch/s]Validating ...:   7%|▋         | 23/313 [00:04<00:18, 15.69batch/s]Validating ...:   7%|▋         | 23/313 [00:04<00:18, 15.69batch/s]Validating ...:   8%|▊         | 26/313 [00:04<00:16, 17.48batch/s]Validating ...:   8%|▊         | 26/313 [00:04<00:16, 17.48batch/s]Validating ...:   8%|▊         | 26/313 [00:04<00:16, 17.48batch/s]Validating ...:   8%|▊         | 26/313 [00:04<00:16, 17.48batch/s]Validating ...:   9%|▉         | 29/313 [00:04<00:15, 18.80batch/s]Validating ...:   9%|▉         | 29/313 [00:04<00:15, 18.80batch/s]Validating ...:   9%|▉         | 29/313 [00:04<00:15, 18.80batch/s]Validating ...:   9%|▉         | 29/313 [00:04<00:15, 18.80batch/s]Validating ...:  10%|█         | 32/313 [00:04<00:14, 19.94batch/s]Validating ...:  10%|█         | 32/313 [00:04<00:14, 19.94batch/s]Validating ...:  10%|█         | 32/313 [00:04<00:14, 19.94batch/s]Validating ...:  10%|█         | 32/313 [00:04<00:14, 19.94batch/s]Validating ...:  11%|█         | 35/313 [00:04<00:13, 20.80batch/s]Validating ...:  11%|█         | 35/313 [00:04<00:13, 20.80batch/s]Validating ...:  11%|█         | 35/313 [00:04<00:13, 20.80batch/s]Validating ...:  11%|█         | 35/313 [00:04<00:13, 20.80batch/s]Validating ...:  12%|█▏        | 38/313 [00:04<00:12, 21.39batch/s]Validating ...:  12%|█▏        | 38/313 [00:04<00:12, 21.39batch/s]Validating ...:  12%|█▏        | 38/313 [00:04<00:12, 21.39batch/s]Validating ...:  12%|█▏        | 38/313 [00:04<00:12, 21.39batch/s]Validating ...:  13%|█▎        | 41/313 [00:04<00:12, 21.90batch/s]Validating ...:  13%|█▎        | 41/313 [00:04<00:12, 21.90batch/s]Validating ...:  13%|█▎        | 41/313 [00:04<00:12, 21.90batch/s]Validating ...:  13%|█▎        | 41/313 [00:05<00:12, 21.90batch/s]Validating ...:  14%|█▍        | 44/313 [00:05<00:12, 22.25batch/s]Validating ...:  14%|█▍        | 44/313 [00:05<00:12, 22.25batch/s]Validating ...:  14%|█▍        | 44/313 [00:05<00:12, 22.25batch/s]Validating ...:  14%|█▍        | 44/313 [00:05<00:12, 22.25batch/s]Validating ...:  15%|█▌        | 47/313 [00:05<00:11, 22.50batch/s]Validating ...:  15%|█▌        | 47/313 [00:05<00:11, 22.50batch/s]Validating ...:  15%|█▌        | 47/313 [00:05<00:11, 22.50batch/s]Validating ...:  15%|█▌        | 47/313 [00:05<00:11, 22.50batch/s]Validating ...:  16%|█▌        | 50/313 [00:05<00:11, 22.63batch/s]Validating ...:  16%|█▌        | 50/313 [00:05<00:11, 22.63batch/s]Validating ...:  16%|█▌        | 50/313 [00:05<00:11, 22.63batch/s]Validating ...:  16%|█▌        | 50/313 [00:05<00:11, 22.63batch/s]Validating ...:  17%|█▋        | 53/313 [00:05<00:11, 22.82batch/s]Validating ...:  17%|█▋        | 53/313 [00:05<00:11, 22.82batch/s]Validating ...:  17%|█▋        | 53/313 [00:05<00:11, 22.82batch/s]Validating ...:  17%|█▋        | 53/313 [00:05<00:11, 22.82batch/s]Validating ...:  18%|█▊        | 56/313 [00:05<00:11, 22.87batch/s]Validating ...:  18%|█▊        | 56/313 [00:05<00:11, 22.87batch/s]Validating ...:  18%|█▊        | 56/313 [00:05<00:11, 22.87batch/s]Validating ...:  18%|█▊        | 56/313 [00:05<00:11, 22.87batch/s]Validating ...:  19%|█▉        | 59/313 [00:05<00:11, 22.99batch/s]Validating ...:  19%|█▉        | 59/313 [00:05<00:11, 22.99batch/s]Validating ...:  19%|█▉        | 59/313 [00:05<00:11, 22.99batch/s]Validating ...:  19%|█▉        | 59/313 [00:05<00:11, 22.99batch/s]Validating ...:  20%|█▉        | 62/313 [00:05<00:10, 23.03batch/s]Validating ...:  20%|█▉        | 62/313 [00:05<00:10, 23.03batch/s]Validating ...:  20%|█▉        | 62/313 [00:05<00:10, 23.03batch/s]Validating ...:  20%|█▉        | 62/313 [00:05<00:10, 23.03batch/s]Validating ...:  21%|██        | 65/313 [00:05<00:10, 23.01batch/s]Validating ...:  21%|██        | 65/313 [00:05<00:10, 23.01batch/s]Validating ...:  21%|██        | 65/313 [00:06<00:10, 23.01batch/s]Validating ...:  21%|██        | 65/313 [00:06<00:10, 23.01batch/s]Validating ...:  22%|██▏       | 68/313 [00:06<00:10, 23.04batch/s]Validating ...:  22%|██▏       | 68/313 [00:06<00:10, 23.04batch/s]Validating ...:  22%|██▏       | 68/313 [00:06<00:10, 23.04batch/s]Validating ...:  22%|██▏       | 68/313 [00:06<00:10, 23.04batch/s]Validating ...:  23%|██▎       | 71/313 [00:06<00:10, 22.91batch/s]Validating ...:  23%|██▎       | 71/313 [00:06<00:10, 22.91batch/s]Validating ...:  23%|██▎       | 71/313 [00:06<00:10, 22.91batch/s]Validating ...:  23%|██▎       | 71/313 [00:06<00:10, 22.91batch/s]Validating ...:  24%|██▎       | 74/313 [00:06<00:10, 22.97batch/s]Validating ...:  24%|██▎       | 74/313 [00:06<00:10, 22.97batch/s]Validating ...:  24%|██▎       | 74/313 [00:06<00:10, 22.97batch/s]Validating ...:  24%|██▎       | 74/313 [00:06<00:10, 22.97batch/s]Validating ...:  25%|██▍       | 77/313 [00:06<00:10, 23.06batch/s]Validating ...:  25%|██▍       | 77/313 [00:06<00:10, 23.06batch/s]Validating ...:  25%|██▍       | 77/313 [00:06<00:10, 23.06batch/s]Validating ...:  25%|██▍       | 77/313 [00:06<00:10, 23.06batch/s]Validating ...:  26%|██▌       | 80/313 [00:06<00:10, 23.12batch/s]Validating ...:  26%|██▌       | 80/313 [00:06<00:10, 23.12batch/s]Validating ...:  26%|██▌       | 80/313 [00:06<00:10, 23.12batch/s]Validating ...:  26%|██▌       | 80/313 [00:06<00:10, 23.12batch/s]Validating ...:  27%|██▋       | 83/313 [00:06<00:09, 23.10batch/s]Validating ...:  27%|██▋       | 83/313 [00:06<00:09, 23.10batch/s]Validating ...:  27%|██▋       | 83/313 [00:06<00:09, 23.10batch/s]Validating ...:  27%|██▋       | 83/313 [00:06<00:09, 23.10batch/s]Validating ...:  27%|██▋       | 86/313 [00:06<00:09, 23.15batch/s]Validating ...:  27%|██▋       | 86/313 [00:06<00:09, 23.15batch/s]Validating ...:  27%|██▋       | 86/313 [00:06<00:09, 23.15batch/s]Validating ...:  27%|██▋       | 86/313 [00:06<00:09, 23.15batch/s]Validating ...:  28%|██▊       | 89/313 [00:07<00:09, 23.17batch/s]Validating ...:  28%|██▊       | 89/313 [00:07<00:09, 23.17batch/s]Validating ...:  28%|██▊       | 89/313 [00:07<00:09, 23.17batch/s]Validating ...:  28%|██▊       | 89/313 [00:07<00:09, 23.17batch/s]Validating ...:  29%|██▉       | 92/313 [00:07<00:09, 23.12batch/s]Validating ...:  29%|██▉       | 92/313 [00:07<00:09, 23.12batch/s]Validating ...:  29%|██▉       | 92/313 [00:07<00:09, 23.12batch/s]Validating ...:  29%|██▉       | 92/313 [00:07<00:09, 23.12batch/s]Validating ...:  30%|███       | 95/313 [00:07<00:09, 23.15batch/s]Validating ...:  30%|███       | 95/313 [00:07<00:09, 23.15batch/s]Validating ...:  30%|███       | 95/313 [00:07<00:09, 23.15batch/s]Validating ...:  30%|███       | 95/313 [00:07<00:09, 23.15batch/s]Validating ...:  31%|███▏      | 98/313 [00:07<00:09, 23.14batch/s]Validating ...:  31%|███▏      | 98/313 [00:07<00:09, 23.14batch/s]Validating ...:  31%|███▏      | 98/313 [00:07<00:09, 23.14batch/s]Validating ...:  31%|███▏      | 98/313 [00:07<00:09, 23.14batch/s]Validating ...:  32%|███▏      | 101/313 [00:07<00:09, 23.17batch/s]Validating ...:  32%|███▏      | 101/313 [00:07<00:09, 23.17batch/s]Validating ...:  32%|███▏      | 101/313 [00:07<00:09, 23.17batch/s]Validating ...:  32%|███▏      | 101/313 [00:07<00:09, 23.17batch/s]Validating ...:  33%|███▎      | 104/313 [00:07<00:09, 23.10batch/s]Validating ...:  33%|███▎      | 104/313 [00:07<00:09, 23.10batch/s]Validating ...:  33%|███▎      | 104/313 [00:07<00:09, 23.10batch/s]Validating ...:  33%|███▎      | 104/313 [00:07<00:09, 23.10batch/s]Validating ...:  34%|███▍      | 107/313 [00:07<00:08, 23.09batch/s]Validating ...:  34%|███▍      | 107/313 [00:07<00:08, 23.09batch/s]Validating ...:  34%|███▍      | 107/313 [00:07<00:08, 23.09batch/s]Validating ...:  34%|███▍      | 107/313 [00:07<00:08, 23.09batch/s]Validating ...:  35%|███▌      | 110/313 [00:07<00:08, 23.15batch/s]Validating ...:  35%|███▌      | 110/313 [00:07<00:08, 23.15batch/s]Validating ...:  35%|███▌      | 110/313 [00:07<00:08, 23.15batch/s]Validating ...:  35%|███▌      | 110/313 [00:08<00:08, 23.15batch/s]Validating ...:  36%|███▌      | 113/313 [00:08<00:08, 23.12batch/s]Validating ...:  36%|███▌      | 113/313 [00:08<00:08, 23.12batch/s]Validating ...:  36%|███▌      | 113/313 [00:08<00:08, 23.12batch/s]Validating ...:  36%|███▌      | 113/313 [00:08<00:08, 23.12batch/s]Validating ...:  37%|███▋      | 116/313 [00:08<00:08, 23.13batch/s]Validating ...:  37%|███▋      | 116/313 [00:08<00:08, 23.13batch/s]Validating ...:  37%|███▋      | 116/313 [00:08<00:08, 23.13batch/s]Validating ...:  37%|███▋      | 116/313 [00:08<00:08, 23.13batch/s]Validating ...:  38%|███▊      | 119/313 [00:08<00:08, 23.10batch/s]Validating ...:  38%|███▊      | 119/313 [00:08<00:08, 23.10batch/s]Validating ...:  38%|███▊      | 119/313 [00:08<00:08, 23.10batch/s]Validating ...:  38%|███▊      | 119/313 [00:08<00:08, 23.10batch/s]Validating ...:  39%|███▉      | 122/313 [00:08<00:08, 23.11batch/s]Validating ...:  39%|███▉      | 122/313 [00:08<00:08, 23.11batch/s]Validating ...:  39%|███▉      | 122/313 [00:08<00:08, 23.11batch/s]Validating ...:  39%|███▉      | 122/313 [00:08<00:08, 23.11batch/s]Validating ...:  40%|███▉      | 125/313 [00:08<00:08, 23.11batch/s]Validating ...:  40%|███▉      | 125/313 [00:08<00:08, 23.11batch/s]Validating ...:  40%|███▉      | 125/313 [00:08<00:08, 23.11batch/s]Validating ...:  40%|███▉      | 125/313 [00:08<00:08, 23.11batch/s]Validating ...:  41%|████      | 128/313 [00:08<00:08, 23.11batch/s]Validating ...:  41%|████      | 128/313 [00:08<00:08, 23.11batch/s]Validating ...:  41%|████      | 128/313 [00:08<00:08, 23.11batch/s]Validating ...:  41%|████      | 128/313 [00:08<00:08, 23.11batch/s]Validating ...:  42%|████▏     | 131/313 [00:08<00:07, 23.13batch/s]Validating ...:  42%|████▏     | 131/313 [00:08<00:07, 23.13batch/s]Validating ...:  42%|████▏     | 131/313 [00:08<00:07, 23.13batch/s]Validating ...:  42%|████▏     | 131/313 [00:08<00:07, 23.13batch/s]Validating ...:  43%|████▎     | 134/313 [00:08<00:07, 23.17batch/s]Validating ...:  43%|████▎     | 134/313 [00:08<00:07, 23.17batch/s]Validating ...:  43%|████▎     | 134/313 [00:08<00:07, 23.17batch/s]Validating ...:  43%|████▎     | 134/313 [00:09<00:07, 23.17batch/s]Validating ...:  44%|████▍     | 137/313 [00:09<00:07, 23.10batch/s]Validating ...:  44%|████▍     | 137/313 [00:09<00:07, 23.10batch/s]Validating ...:  44%|████▍     | 137/313 [00:09<00:07, 23.10batch/s]Validating ...:  44%|████▍     | 137/313 [00:09<00:07, 23.10batch/s]Validating ...:  45%|████▍     | 140/313 [00:09<00:07, 23.06batch/s]Validating ...:  45%|████▍     | 140/313 [00:09<00:07, 23.06batch/s]Validating ...:  45%|████▍     | 140/313 [00:09<00:07, 23.06batch/s]Validating ...:  45%|████▍     | 140/313 [00:09<00:07, 23.06batch/s]Validating ...:  46%|████▌     | 143/313 [00:09<00:07, 22.98batch/s]Validating ...:  46%|████▌     | 143/313 [00:09<00:07, 22.98batch/s]Validating ...:  46%|████▌     | 143/313 [00:09<00:07, 22.98batch/s]Validating ...:  46%|████▌     | 143/313 [00:09<00:07, 22.98batch/s]Validating ...:  47%|████▋     | 146/313 [00:09<00:07, 22.98batch/s]Validating ...:  47%|████▋     | 146/313 [00:09<00:07, 22.98batch/s]Validating ...:  47%|████▋     | 146/313 [00:09<00:07, 22.98batch/s]Validating ...:  47%|████▋     | 146/313 [00:09<00:07, 22.98batch/s]Validating ...:  48%|████▊     | 149/313 [00:09<00:07, 22.98batch/s]Validating ...:  48%|████▊     | 149/313 [00:09<00:07, 22.98batch/s]Validating ...:  48%|████▊     | 149/313 [00:09<00:07, 22.98batch/s]Validating ...:  48%|████▊     | 149/313 [00:09<00:07, 22.98batch/s]Validating ...:  49%|████▊     | 152/313 [00:09<00:07, 22.96batch/s]Validating ...:  49%|████▊     | 152/313 [00:09<00:07, 22.96batch/s]Validating ...:  49%|████▊     | 152/313 [00:09<00:07, 22.96batch/s]Validating ...:  49%|████▊     | 152/313 [00:09<00:07, 22.96batch/s]Validating ...:  50%|████▉     | 155/313 [00:09<00:06, 23.00batch/s]Validating ...:  50%|████▉     | 155/313 [00:09<00:06, 23.00batch/s]Validating ...:  50%|████▉     | 155/313 [00:09<00:06, 23.00batch/s]Validating ...:  50%|████▉     | 155/313 [00:09<00:06, 23.00batch/s]Validating ...:  50%|█████     | 158/313 [00:10<00:06, 22.97batch/s]Validating ...:  50%|█████     | 158/313 [00:10<00:06, 22.97batch/s]Validating ...:  50%|█████     | 158/313 [00:10<00:06, 22.97batch/s]Validating ...:  50%|█████     | 158/313 [00:10<00:06, 22.97batch/s]Validating ...:  51%|█████▏    | 161/313 [00:10<00:06, 23.06batch/s]Validating ...:  51%|█████▏    | 161/313 [00:10<00:06, 23.06batch/s]Validating ...:  51%|█████▏    | 161/313 [00:10<00:06, 23.06batch/s]Validating ...:  51%|█████▏    | 161/313 [00:10<00:06, 23.06batch/s]Validating ...:  52%|█████▏    | 164/313 [00:10<00:06, 23.07batch/s]Validating ...:  52%|█████▏    | 164/313 [00:10<00:06, 23.07batch/s]Validating ...:  52%|█████▏    | 164/313 [00:10<00:06, 23.07batch/s]Validating ...:  52%|█████▏    | 164/313 [00:10<00:06, 23.07batch/s]Validating ...:  53%|█████▎    | 167/313 [00:10<00:06, 23.08batch/s]Validating ...:  53%|█████▎    | 167/313 [00:10<00:06, 23.08batch/s]Validating ...:  53%|█████▎    | 167/313 [00:10<00:06, 23.08batch/s]Validating ...:  53%|█████▎    | 167/313 [00:10<00:06, 23.08batch/s]Validating ...:  54%|█████▍    | 170/313 [00:10<00:06, 23.11batch/s]Validating ...:  54%|█████▍    | 170/313 [00:10<00:06, 23.11batch/s]Validating ...:  54%|█████▍    | 170/313 [00:10<00:06, 23.11batch/s]Validating ...:  54%|█████▍    | 170/313 [00:10<00:06, 23.11batch/s]Validating ...:  55%|█████▌    | 173/313 [00:10<00:06, 23.11batch/s]Validating ...:  55%|█████▌    | 173/313 [00:10<00:06, 23.11batch/s]Validating ...:  55%|█████▌    | 173/313 [00:10<00:06, 23.11batch/s]Validating ...:  55%|█████▌    | 173/313 [00:10<00:06, 23.11batch/s]Validating ...:  56%|█████▌    | 176/313 [00:10<00:05, 23.08batch/s]Validating ...:  56%|█████▌    | 176/313 [00:10<00:05, 23.08batch/s]Validating ...:  56%|█████▌    | 176/313 [00:10<00:05, 23.08batch/s]Validating ...:  56%|█████▌    | 176/313 [00:10<00:05, 23.08batch/s]Validating ...:  57%|█████▋    | 179/313 [00:10<00:05, 23.07batch/s]Validating ...:  57%|█████▋    | 179/313 [00:10<00:05, 23.07batch/s]Validating ...:  57%|█████▋    | 179/313 [00:10<00:05, 23.07batch/s]Validating ...:  57%|█████▋    | 179/313 [00:10<00:05, 23.07batch/s]Validating ...:  58%|█████▊    | 182/313 [00:11<00:05, 23.06batch/s]Validating ...:  58%|█████▊    | 182/313 [00:11<00:05, 23.06batch/s]Validating ...:  58%|█████▊    | 182/313 [00:11<00:05, 23.06batch/s]Validating ...:  58%|█████▊    | 182/313 [00:11<00:05, 23.06batch/s]Validating ...:  59%|█████▉    | 185/313 [00:11<00:05, 23.03batch/s]Validating ...:  59%|█████▉    | 185/313 [00:11<00:05, 23.03batch/s]Validating ...:  59%|█████▉    | 185/313 [00:11<00:05, 23.03batch/s]Validating ...:  59%|█████▉    | 185/313 [00:11<00:05, 23.03batch/s]Validating ...:  60%|██████    | 188/313 [00:11<00:05, 23.04batch/s]Validating ...:  60%|██████    | 188/313 [00:11<00:05, 23.04batch/s]Validating ...:  60%|██████    | 188/313 [00:11<00:05, 23.04batch/s]Validating ...:  60%|██████    | 188/313 [00:11<00:05, 23.04batch/s]Validating ...:  61%|██████    | 191/313 [00:11<00:05, 23.05batch/s]Validating ...:  61%|██████    | 191/313 [00:11<00:05, 23.05batch/s]Validating ...:  61%|██████    | 191/313 [00:11<00:05, 23.05batch/s]Validating ...:  61%|██████    | 191/313 [00:11<00:05, 23.05batch/s]Validating ...:  62%|██████▏   | 194/313 [00:11<00:05, 23.07batch/s]Validating ...:  62%|██████▏   | 194/313 [00:11<00:05, 23.07batch/s]Validating ...:  62%|██████▏   | 194/313 [00:11<00:05, 23.07batch/s]Validating ...:  62%|██████▏   | 194/313 [00:11<00:05, 23.07batch/s]Validating ...:  63%|██████▎   | 197/313 [00:11<00:05, 23.12batch/s]Validating ...:  63%|██████▎   | 197/313 [00:11<00:05, 23.12batch/s]Validating ...:  63%|██████▎   | 197/313 [00:11<00:05, 23.12batch/s]Validating ...:  63%|██████▎   | 197/313 [00:11<00:05, 23.12batch/s]Validating ...:  64%|██████▍   | 200/313 [00:11<00:04, 23.08batch/s]Validating ...:  64%|██████▍   | 200/313 [00:11<00:04, 23.08batch/s]Validating ...:  64%|██████▍   | 200/313 [00:11<00:04, 23.08batch/s]Validating ...:  64%|██████▍   | 200/313 [00:11<00:04, 23.08batch/s]Validating ...:  65%|██████▍   | 203/313 [00:11<00:04, 23.10batch/s]Validating ...:  65%|██████▍   | 203/313 [00:11<00:04, 23.10batch/s]Validating ...:  65%|██████▍   | 203/313 [00:11<00:04, 23.10batch/s]Validating ...:  65%|██████▍   | 203/313 [00:12<00:04, 23.10batch/s]Validating ...:  66%|██████▌   | 206/313 [00:12<00:04, 23.06batch/s]Validating ...:  66%|██████▌   | 206/313 [00:12<00:04, 23.06batch/s]Validating ...:  66%|██████▌   | 206/313 [00:12<00:04, 23.06batch/s]Validating ...:  66%|██████▌   | 206/313 [00:12<00:04, 23.06batch/s]Validating ...:  67%|██████▋   | 209/313 [00:12<00:04, 23.09batch/s]Validating ...:  67%|██████▋   | 209/313 [00:12<00:04, 23.09batch/s]Validating ...:  67%|██████▋   | 209/313 [00:12<00:04, 23.09batch/s]Validating ...:  67%|██████▋   | 209/313 [00:12<00:04, 23.09batch/s]Validating ...:  68%|██████▊   | 212/313 [00:12<00:04, 23.14batch/s]Validating ...:  68%|██████▊   | 212/313 [00:12<00:04, 23.14batch/s]Validating ...:  68%|██████▊   | 212/313 [00:12<00:04, 23.14batch/s]Validating ...:  68%|██████▊   | 212/313 [00:12<00:04, 23.14batch/s]Validating ...:  69%|██████▊   | 215/313 [00:12<00:04, 23.14batch/s]Validating ...:  69%|██████▊   | 215/313 [00:12<00:04, 23.14batch/s]Validating ...:  69%|██████▊   | 215/313 [00:12<00:04, 23.14batch/s]Validating ...:  69%|██████▊   | 215/313 [00:12<00:04, 23.14batch/s]Validating ...:  70%|██████▉   | 218/313 [00:12<00:04, 23.08batch/s]Validating ...:  70%|██████▉   | 218/313 [00:12<00:04, 23.08batch/s]Validating ...:  70%|██████▉   | 218/313 [00:12<00:04, 23.08batch/s]Validating ...:  70%|██████▉   | 218/313 [00:12<00:04, 23.08batch/s]Validating ...:  71%|███████   | 221/313 [00:12<00:03, 23.12batch/s]Validating ...:  71%|███████   | 221/313 [00:12<00:03, 23.12batch/s]Validating ...:  71%|███████   | 221/313 [00:12<00:03, 23.12batch/s]Validating ...:  71%|███████   | 221/313 [00:12<00:03, 23.12batch/s]Validating ...:  72%|███████▏  | 224/313 [00:12<00:03, 23.11batch/s]Validating ...:  72%|███████▏  | 224/313 [00:12<00:03, 23.11batch/s]Validating ...:  72%|███████▏  | 224/313 [00:12<00:03, 23.11batch/s]Validating ...:  72%|███████▏  | 224/313 [00:12<00:03, 23.11batch/s]Validating ...:  73%|███████▎  | 227/313 [00:12<00:03, 22.99batch/s]Validating ...:  73%|███████▎  | 227/313 [00:12<00:03, 22.99batch/s]Validating ...:  73%|███████▎  | 227/313 [00:13<00:03, 22.99batch/s]Validating ...:  73%|███████▎  | 227/313 [00:13<00:03, 22.99batch/s]Validating ...:  73%|███████▎  | 230/313 [00:13<00:03, 23.05batch/s]Validating ...:  73%|███████▎  | 230/313 [00:13<00:03, 23.05batch/s]Validating ...:  73%|███████▎  | 230/313 [00:13<00:03, 23.05batch/s]Validating ...:  73%|███████▎  | 230/313 [00:13<00:03, 23.05batch/s]Validating ...:  74%|███████▍  | 233/313 [00:13<00:03, 23.04batch/s]Validating ...:  74%|███████▍  | 233/313 [00:13<00:03, 23.04batch/s]Validating ...:  74%|███████▍  | 233/313 [00:13<00:03, 23.04batch/s]Validating ...:  74%|███████▍  | 233/313 [00:13<00:03, 23.04batch/s]Validating ...:  75%|███████▌  | 236/313 [00:13<00:03, 23.01batch/s]Validating ...:  75%|███████▌  | 236/313 [00:13<00:03, 23.01batch/s]Validating ...:  75%|███████▌  | 236/313 [00:13<00:03, 23.01batch/s]Validating ...:  75%|███████▌  | 236/313 [00:13<00:03, 23.01batch/s]Validating ...:  76%|███████▋  | 239/313 [00:13<00:03, 22.98batch/s]Validating ...:  76%|███████▋  | 239/313 [00:13<00:03, 22.98batch/s]Validating ...:  76%|███████▋  | 239/313 [00:13<00:03, 22.98batch/s]Validating ...:  76%|███████▋  | 239/313 [00:13<00:03, 22.98batch/s]Validating ...:  77%|███████▋  | 242/313 [00:13<00:03, 23.02batch/s]Validating ...:  77%|███████▋  | 242/313 [00:13<00:03, 23.02batch/s]Validating ...:  77%|███████▋  | 242/313 [00:13<00:03, 23.02batch/s]Validating ...:  77%|███████▋  | 242/313 [00:13<00:03, 23.02batch/s]Validating ...:  78%|███████▊  | 245/313 [00:13<00:02, 23.03batch/s]Validating ...:  78%|███████▊  | 245/313 [00:13<00:02, 23.03batch/s]Validating ...:  78%|███████▊  | 245/313 [00:13<00:02, 23.03batch/s]Validating ...:  78%|███████▊  | 245/313 [00:13<00:02, 23.03batch/s]Validating ...:  79%|███████▉  | 248/313 [00:13<00:02, 23.03batch/s]Validating ...:  79%|███████▉  | 248/313 [00:13<00:02, 23.03batch/s]Validating ...:  79%|███████▉  | 248/313 [00:13<00:02, 23.03batch/s]Validating ...:  79%|███████▉  | 248/313 [00:13<00:02, 23.03batch/s]Validating ...:  80%|████████  | 251/313 [00:14<00:02, 23.10batch/s]Validating ...:  80%|████████  | 251/313 [00:14<00:02, 23.10batch/s]Validating ...:  80%|████████  | 251/313 [00:14<00:02, 23.10batch/s]Validating ...:  80%|████████  | 251/313 [00:14<00:02, 23.10batch/s]Validating ...:  81%|████████  | 254/313 [00:14<00:02, 23.20batch/s]Validating ...:  81%|████████  | 254/313 [00:14<00:02, 23.20batch/s]Validating ...:  81%|████████  | 254/313 [00:14<00:02, 23.20batch/s]Validating ...:  81%|████████  | 254/313 [00:14<00:02, 23.20batch/s]Validating ...:  82%|████████▏ | 257/313 [00:14<00:02, 23.28batch/s]Validating ...:  82%|████████▏ | 257/313 [00:14<00:02, 23.28batch/s]Validating ...:  82%|████████▏ | 257/313 [00:14<00:02, 23.28batch/s]Validating ...:  82%|████████▏ | 257/313 [00:14<00:02, 23.28batch/s]Validating ...:  83%|████████▎ | 260/313 [00:14<00:02, 23.33batch/s]Validating ...:  83%|████████▎ | 260/313 [00:14<00:02, 23.33batch/s]Validating ...:  83%|████████▎ | 260/313 [00:14<00:02, 23.33batch/s]Validating ...:  83%|████████▎ | 260/313 [00:14<00:02, 23.33batch/s]Validating ...:  84%|████████▍ | 263/313 [00:14<00:02, 23.37batch/s]Validating ...:  84%|████████▍ | 263/313 [00:14<00:02, 23.37batch/s]Validating ...:  84%|████████▍ | 263/313 [00:14<00:02, 23.37batch/s]Validating ...:  84%|████████▍ | 263/313 [00:14<00:02, 23.37batch/s]Validating ...:  85%|████████▍ | 266/313 [00:14<00:02, 23.41batch/s]Validating ...:  85%|████████▍ | 266/313 [00:14<00:02, 23.41batch/s]Validating ...:  85%|████████▍ | 266/313 [00:14<00:02, 23.41batch/s]Validating ...:  85%|████████▍ | 266/313 [00:14<00:02, 23.41batch/s]Validating ...:  86%|████████▌ | 269/313 [00:14<00:01, 23.42batch/s]Validating ...:  86%|████████▌ | 269/313 [00:14<00:01, 23.42batch/s]Validating ...:  86%|████████▌ | 269/313 [00:14<00:01, 23.42batch/s]Validating ...:  86%|████████▌ | 269/313 [00:14<00:01, 23.42batch/s]Validating ...:  87%|████████▋ | 272/313 [00:14<00:01, 23.43batch/s]Validating ...:  87%|████████▋ | 272/313 [00:14<00:01, 23.43batch/s]Validating ...:  87%|████████▋ | 272/313 [00:14<00:01, 23.43batch/s]Validating ...:  87%|████████▋ | 272/313 [00:15<00:01, 23.43batch/s]Validating ...:  88%|████████▊ | 275/313 [00:15<00:01, 23.44batch/s]Validating ...:  88%|████████▊ | 275/313 [00:15<00:01, 23.44batch/s]Validating ...:  88%|████████▊ | 275/313 [00:15<00:01, 23.44batch/s]Validating ...:  88%|████████▊ | 275/313 [00:15<00:01, 23.44batch/s]Validating ...:  89%|████████▉ | 278/313 [00:15<00:01, 23.44batch/s]Validating ...:  89%|████████▉ | 278/313 [00:15<00:01, 23.44batch/s]Validating ...:  89%|████████▉ | 278/313 [00:15<00:01, 23.44batch/s]Validating ...:  89%|████████▉ | 278/313 [00:15<00:01, 23.44batch/s]Validating ...:  90%|████████▉ | 281/313 [00:15<00:01, 23.45batch/s]Validating ...:  90%|████████▉ | 281/313 [00:15<00:01, 23.45batch/s]Validating ...:  90%|████████▉ | 281/313 [00:15<00:01, 23.45batch/s]Validating ...:  90%|████████▉ | 281/313 [00:15<00:01, 23.45batch/s]Validating ...:  91%|█████████ | 284/313 [00:15<00:01, 23.45batch/s]Validating ...:  91%|█████████ | 284/313 [00:15<00:01, 23.45batch/s]Validating ...:  91%|█████████ | 284/313 [00:15<00:01, 23.45batch/s]Validating ...:  91%|█████████ | 284/313 [00:15<00:01, 23.45batch/s]Validating ...:  92%|█████████▏| 287/313 [00:15<00:01, 23.46batch/s]Validating ...:  92%|█████████▏| 287/313 [00:15<00:01, 23.46batch/s]Validating ...:  92%|█████████▏| 287/313 [00:15<00:01, 23.46batch/s]Validating ...:  92%|█████████▏| 287/313 [00:15<00:01, 23.46batch/s]Validating ...:  93%|█████████▎| 290/313 [00:15<00:00, 23.47batch/s]Validating ...:  93%|█████████▎| 290/313 [00:15<00:00, 23.47batch/s]Validating ...:  93%|█████████▎| 290/313 [00:15<00:00, 23.47batch/s]Validating ...:  93%|█████████▎| 290/313 [00:15<00:00, 23.47batch/s]Validating ...:  94%|█████████▎| 293/313 [00:15<00:00, 23.47batch/s]Validating ...:  94%|█████████▎| 293/313 [00:15<00:00, 23.47batch/s]Validating ...:  94%|█████████▎| 293/313 [00:15<00:00, 23.47batch/s]Validating ...:  94%|█████████▎| 293/313 [00:15<00:00, 23.47batch/s]Validating ...:  95%|█████████▍| 296/313 [00:15<00:00, 23.47batch/s]Validating ...:  95%|█████████▍| 296/313 [00:15<00:00, 23.47batch/s]Validating ...:  95%|█████████▍| 296/313 [00:15<00:00, 23.47batch/s]Validating ...:  95%|█████████▍| 296/313 [00:16<00:00, 23.47batch/s]Validating ...:  96%|█████████▌| 299/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▌| 299/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▌| 299/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▌| 299/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▋| 302/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▋| 302/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▋| 302/313 [00:16<00:00, 23.46batch/s]Validating ...:  96%|█████████▋| 302/313 [00:16<00:00, 23.46batch/s]Validating ...:  97%|█████████▋| 305/313 [00:16<00:00, 23.46batch/s]Validating ...:  97%|█████████▋| 305/313 [00:16<00:00, 23.46batch/s]Validating ...:  97%|█████████▋| 305/313 [00:16<00:00, 23.46batch/s]Validating ...:  97%|█████████▋| 305/313 [00:16<00:00, 23.46batch/s]Validating ...:  98%|█████████▊| 308/313 [00:16<00:00, 23.46batch/s]Validating ...:  98%|█████████▊| 308/313 [00:16<00:00, 23.46batch/s]Validating ...:  98%|█████████▊| 308/313 [00:16<00:00, 23.46batch/s]Validating ...:  98%|█████████▊| 308/313 [00:16<00:00, 23.46batch/s]Validating ...:  99%|█████████▉| 311/313 [00:16<00:00, 23.46batch/s]Validating ...:  99%|█████████▉| 311/313 [00:16<00:00, 23.46batch/s]Validating ...:  99%|█████████▉| 311/313 [00:16<00:00, 23.46batch/s]Validating ...: 100%|██████████| 313/313 [00:16<00:00, 18.68batch/s]
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-Image uncert: inf
-Text uncert:  inf
-
-*** Results ***
-Avg. Image Uncertainty: inf, Avg. Text Uncertainty: inf
