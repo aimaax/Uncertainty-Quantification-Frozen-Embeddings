@@ -4,6 +4,8 @@ import torch.nn.functional as F
 import torchvision.models as models
 from torch import Tensor
 
+import torchbnn as bnn
+
 class GenGaussLoss(nn.Module):
 	def __init__(
 		self, reduction='mean',
@@ -44,7 +46,7 @@ class GenGaussLoss(nn.Module):
 			print('log_beta has nan')
 		
 		l = resi - log_one_over_alpha + lgamma_beta - log_beta
-
+                # kl_loss = 
 		if self.reduction == 'mean':
 			return l.mean()
 		elif self.reduction == 'sum':

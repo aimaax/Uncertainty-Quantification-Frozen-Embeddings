@@ -1,0 +1,87 @@
+This job can be monitored from: https://job.c3se.chalmers.se/alvis/3191284
+Lmod has detected the following error: The following module(s) are unknown:
+"ftfy"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "ftfy"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 32 worker processes in total. Our suggested max number of worker in current system is 16, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl
+creating index...
+index created!
+Loading COCO Caption: n_images 113287 n_captions 566435...
+loading annotations into memory...
+Done (t=0.24s)
+creating index...
+index created!
+Loading COCO Caption: n_images 1000 n_captions 5000...
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+Loading COCO Caption: n_images 5000 n_captions 25000...
+Loading Flickr Caption: n_captions 148915...
+Loading Flickr Caption: n_captions 5000...
+Loading Flickr Caption: n_captions 5000...
+Loading checkpoint from ../ckpt/BBB_woKL_Net_best.pth
+Evaluating uncertainties on coco (in-distribution)
+Estimating uncertainties on IOD:   0%|          | 0/313 [00:00<?, ?batch/s]Estimating uncertainties on IOD:   0%|          | 1/313 [00:04<22:09,  4.26s/batch]Estimating uncertainties on IOD:   1%|          | 3/313 [00:04<06:00,  1.16s/batch]Estimating uncertainties on IOD:   2%|▏         | 5/313 [00:04<03:06,  1.66batch/s]Estimating uncertainties on IOD:   2%|▏         | 7/313 [00:04<01:56,  2.62batch/s]Estimating uncertainties on IOD:   3%|▎         | 9/313 [00:04<01:21,  3.75batch/s]Estimating uncertainties on IOD:   4%|▎         | 11/313 [00:05<01:00,  4.99batch/s]Estimating uncertainties on IOD:   4%|▍         | 13/313 [00:05<00:47,  6.27batch/s]Estimating uncertainties on IOD:   5%|▍         | 15/313 [00:05<00:39,  7.52batch/s]Estimating uncertainties on IOD:   5%|▌         | 17/313 [00:05<00:34,  8.64batch/s]Estimating uncertainties on IOD:   6%|▌         | 19/313 [00:05<00:30,  9.63batch/s]Estimating uncertainties on IOD:   7%|▋         | 21/313 [00:05<00:28, 10.42batch/s]Estimating uncertainties on IOD:   7%|▋         | 23/313 [00:05<00:26, 11.03batch/s]Estimating uncertainties on IOD:   8%|▊         | 25/313 [00:06<00:25, 11.41batch/s]Estimating uncertainties on IOD:   9%|▊         | 27/313 [00:06<00:24, 11.80batch/s]Estimating uncertainties on IOD:   9%|▉         | 29/313 [00:06<00:23, 12.07batch/s]Estimating uncertainties on IOD:  10%|▉         | 31/313 [00:06<00:23, 12.25batch/s]Estimating uncertainties on IOD:  11%|█         | 33/313 [00:06<00:22, 12.40batch/s]Estimating uncertainties on IOD:  11%|█         | 35/313 [00:06<00:22, 12.48batch/s]Estimating uncertainties on IOD:  12%|█▏        | 37/313 [00:07<00:22, 12.42batch/s]Estimating uncertainties on IOD:  12%|█▏        | 39/313 [00:07<00:22, 12.28batch/s]Estimating uncertainties on IOD:  13%|█▎        | 41/313 [00:07<00:21, 12.38batch/s]Estimating uncertainties on IOD:  14%|█▎        | 43/313 [00:07<00:21, 12.47batch/s]Estimating uncertainties on IOD:  14%|█▍        | 45/313 [00:07<00:21, 12.53batch/s]Estimating uncertainties on IOD:  15%|█▌        | 47/313 [00:07<00:21, 12.57batch/s]Estimating uncertainties on IOD:  16%|█▌        | 49/313 [00:08<00:20, 12.61batch/s]Estimating uncertainties on IOD:  16%|█▋        | 51/313 [00:08<00:20, 12.49batch/s]Estimating uncertainties on IOD:  17%|█▋        | 53/313 [00:08<00:20, 12.59batch/s]Estimating uncertainties on IOD:  18%|█▊        | 55/313 [00:08<00:20, 12.59batch/s]Estimating uncertainties on IOD:  18%|█▊        | 57/313 [00:08<00:20, 12.59batch/s]Estimating uncertainties on IOD:  19%|█▉        | 59/313 [00:08<00:20, 12.59batch/s]Estimating uncertainties on IOD:  19%|█▉        | 61/313 [00:08<00:20, 12.58batch/s]Estimating uncertainties on IOD:  20%|██        | 63/313 [00:09<00:19, 12.56batch/s]Estimating uncertainties on IOD:  21%|██        | 65/313 [00:09<00:19, 12.56batch/s]Estimating uncertainties on IOD:  21%|██▏       | 67/313 [00:09<00:19, 12.51batch/s]Estimating uncertainties on IOD:  22%|██▏       | 69/313 [00:09<00:19, 12.51batch/s]Estimating uncertainties on IOD:  23%|██▎       | 71/313 [00:09<00:19, 12.50batch/s]Estimating uncertainties on IOD:  23%|██▎       | 73/313 [00:09<00:19, 12.51batch/s]Estimating uncertainties on IOD:  24%|██▍       | 75/313 [00:10<00:19, 12.51batch/s]Estimating uncertainties on IOD:  25%|██▍       | 77/313 [00:10<00:18, 12.51batch/s]Estimating uncertainties on IOD:  25%|██▌       | 79/313 [00:10<00:18, 12.49batch/s]Estimating uncertainties on IOD:  26%|██▌       | 81/313 [00:10<00:18, 12.46batch/s]Estimating uncertainties on IOD:  27%|██▋       | 83/313 [00:10<00:18, 12.46batch/s]Estimating uncertainties on IOD:  27%|██▋       | 85/313 [00:10<00:18, 12.45batch/s]Estimating uncertainties on IOD:  28%|██▊       | 87/313 [00:11<00:18, 12.43batch/s]Estimating uncertainties on IOD:  28%|██▊       | 89/313 [00:11<00:18, 12.42batch/s]Estimating uncertainties on IOD:  29%|██▉       | 91/313 [00:11<00:17, 12.41batch/s]Estimating uncertainties on IOD:  30%|██▉       | 93/313 [00:11<00:17, 12.40batch/s]Estimating uncertainties on IOD:  30%|███       | 95/313 [00:11<00:17, 12.43batch/s]Estimating uncertainties on IOD:  31%|███       | 97/313 [00:11<00:17, 12.44batch/s]Estimating uncertainties on IOD:  32%|███▏      | 99/313 [00:12<00:17, 12.44batch/s]Estimating uncertainties on IOD:  32%|███▏      | 101/313 [00:12<00:17, 12.23batch/s]Estimating uncertainties on IOD:  32%|███▏      | 101/313 [00:12<00:26,  8.13batch/s]
+Traceback (most recent call last):
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 353, in <module>
+    
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 349, in main
+    #bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 318, in compare_iod_vs_ood
+    return avg_image_uncertainty, avg_text_uncertainty
+                                              ^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 297, in estimate_uncertainty_variances
+    (_, _, _, i_v), (_, _, _, t_v) = multi_fwpass_ProbVLM(
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/utils.py", line 186, in multi_fwpass_ProbVLM
+    (img_mu, img_1alpha, img_beta), (txt_mu, txt_1alpha, txt_beta) = BayesCap_Net(xfI, xfT)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/networks.py", line 141, in forward
+    txt_mu, txt_1alpha, txt_beta = self.txt_BayesCap(t_features)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/networks.py", line 91, in forward
+    x_mu = self.block_mu(x_intr)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/container.py", line 215, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/UQ_venv/lib/python3.11/site-packages/torchbnn/modules/linear.py", line 86, in forward
+    weight = self.weight_mu + torch.exp(self.weight_log_sigma) * torch.randn_like(self.weight_log_sigma)
+             ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB. GPU 0 has a total capacty of 44.67 GiB of which 704.00 KiB is free. Including non-PyTorch memory, this process has 44.66 GiB memory in use. Of the allocated memory 44.29 GiB is allocated by PyTorch, and 51.82 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

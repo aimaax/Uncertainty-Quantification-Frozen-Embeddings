@@ -68,6 +68,8 @@ class FlickrCap(Dataset):
             data = [val.strip() for val in row[0].split('|')] # ex: ['1001465944.jpg', '0', 'A woman is walking .']
             if data[0] in image_files:
                 self.datas.append(data)
+                if len(data) != 3:
+                    print("data:", data)
 
     def __getitem__(self, index, get_caption=False):
         image_file, _, caption = self.datas[index]

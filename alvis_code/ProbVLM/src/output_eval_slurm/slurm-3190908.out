@@ -1,0 +1,31 @@
+This job can be monitored from: https://job.c3se.chalmers.se/alvis/3190908
+Lmod has detected the following error: The following module(s) are unknown:
+"ftfy"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "ftfy"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/main.py:36: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at /dev/shm/PyTorch/2.1.2/foss-2023a-CUDA-12.1.1/pytorch-v2.1.2/torch/csrc/tensor/python_tensor.cpp:83.)
+  dtype=torch.cuda.FloatTensor(),
+Error: Unknown model type '&model'. Supported models are 'ProbVLM' and 'BBB'.
+/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl
+creating index...
+index created!
+Loading COCO Caption: n_images 113287 n_captions 566435...
+loading annotations into memory...
+Done (t=0.26s)
+creating index...
+index created!
+Loading COCO Caption: n_images 1000 n_captions 5000...
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+Loading COCO Caption: n_images 5000 n_captions 25000...
+mv: cannot stat '/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/slurm*': No such file or directory

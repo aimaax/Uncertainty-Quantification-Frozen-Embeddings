@@ -71,3 +71,16 @@ Thursday:
 
 Friday:
 
+
+Week 48:
+    To do list. 
+    Train ProbVLM for reference
+    Add KL divergence term to loss function
+    Evaluate uncertainty for out of distribution data
+
+Monday:
+	Training ProbVLM and BBB (with the additional KL term in the loss).
+	Setting up the flickr dataset, and evaluating it. Writing a script to extract the epistemic uncertainty in order to compare the uncertainty
+	for coco vs flickr (coco should be lower since it is trained on it).
+	Trying to debug the recall script (something is still wrong).
+    
