@@ -98,7 +98,7 @@ def load_and_evaluate(
     )
 
     # Load the checkpoint
-    print(f"Loading checkpoint from {ckpt_path}...")
+    print(f"Loading checkpoint from {ckpt_path}")
     ProbVLM_Net.load_state_dict(torch.load(ckpt_path, map_location=device))
 
     # Evaluate using the existing `eval_ProbVLM` function
@@ -145,16 +145,24 @@ def eval_ProbVLM_uncert(
 
     # Calculate recall@1 for each bin
     bin_recalls = []
+    counter = 0
     for bin_key, samples in bins.items():
         if not samples:
             bin_recalls.append(0)  # If bin is empty, append 0
             continue
         
         indices = [sample[0] for sample in samples]  # Extract indices from sorted list
-        bin_query_features = torch.stack([r_dict['ir_f'][i] for i in indices])
-        bin_gallery_features = torch.stack(r_dict['t_f'])  # All gallery features
+        bin_query_features = torch.stack([r_dict['i_f'][i] for i in indices])
+        bin_gallery_features = torch.stack(r_dict['t_f'][i] for i in indices)  # All gallery features
         pred_ranks = get_pred_ranks(bin_query_features, bin_gallery_features, recall_ks=(1,))
-        recall_scores = get_recall(pred_ranks, recall_ks=(1,))
+        
+        if counter == 0:
+            #print(f"Query: {bin_query_features}")
+            #print(f"Gallery: {bin_gallery_features}")
+            print(f"Pred Ranks: {pred_ranks}")
+            #print(f"Indices: {indices}")
+        counter += 1
+        recall_scores = get_recall_COCOFLICKR(pred_ranks, recall_ks=(1,), q_idx=indices)
         bin_recalls.append(recall_scores[0])
 
     return bin_recalls, bins
@@ -177,7 +185,7 @@ def load_and_evaluate_uncert(
     })
 
     loaders = load_data_loader(dataset, data_dir, dataloader_config)
-    coco_valid_loader = loaders['val']
+    coco_valid_loader = loaders['train']
 
     # Load CLIP model
     CLIP_Net = load_model(device=device, model_path=None)
@@ -191,7 +199,7 @@ def load_and_evaluate_uncert(
     )
 
     # Load the checkpoint
-    print(f"Loading checkpoint from {ckpt_path}...")
+    print(f"Loading checkpoint from {ckpt_path}")
     ProbVLM_Net.load_state_dict(torch.load(ckpt_path, map_location=device))
 
     # Evaluate with uncertainty
@@ -218,12 +226,133 @@ def load_and_evaluate_uncert(
 
     return bin_recalls, bins
 
+def compare_iod_vs_ood(
+    ckpt_path="../ckpt/ProbVLM_Net_best.pth",
+    iod_dataset="coco",
+    ood_dataset="flickr",
+    data_dir_iod="../datasets/coco",
+    data_dir_ood="../datasets/flickr",
+    batch_size=16,
+    n_fw=10,
+    device="cuda",
+):
+    # Load data loaders
+    dataloader_config = mch({
+        "batch_size": batch_size,
+        "random_erasing_prob": 0,
+        "traindata_shuffle": True
+    })
+
+    loaders_iod = load_data_loader(iod_dataset, data_dir_iod, dataloader_config)
+    loaders_ood = load_data_loader(ood_dataset, data_dir_ood, dataloader_config)
+    iod_valid_loader = loaders_iod['val']
+    ood_valid_loader = loaders_ood['val']
+
+    # Load CLIP model
+    CLIP_Net = load_model(device=device, model_path=None)
+
+    # Define BayesCap network
+    Net = BayesCap_for_CLIP(
+        inp_dim=512,
+        out_dim=512,
+        hid_dim=256,
+        num_layers=3
+    )
+
+    # Load the checkpoint
+    print(f"Loading checkpoint from {ckpt_path}")
+    Net.load_state_dict(torch.load(ckpt_path, map_location=device))
+
+    # Helper function to estimate `i_v` and `t_v` from a dataloader
+    def estimate_uncertainty_variances(loader, description, BayesCap_Net, CLIP_Net, n_fw=15, device="cuda"):
+        """
+        Estimate uncertainty variances for image and text inputs.
+
+        Args:
+            loader: DataLoader providing batches of (image, text) data.
+            description: Description for logging (e.g., 'IOD' or 'OOD').
+            BayesCap_Net: Bayesian network for uncertainty estimation.
+            CLIP_Net: Pretrained CLIP model to extract features.
+            n_fw: Number of forward passes to perform.
+        
+        Returns:
+            avg_image_uncertainty: Average uncertainty for image inputs.
+            avg_text_uncertainty: Average uncertainty for text inputs.
+        """
+        image_uncertainties = []
+        text_uncertainties = []
+
+        CLIP_Net.to(device)
+        CLIP_Net.eval()
+        BayesCap_Net.to(device)
+        BayesCap_Net.eval()
+
+        with tqdm(loader, unit='sample', desc=f'Estimating uncertainties on {description}') as samples:
+            for batch in samples:
+                # Extract image and text inputs; ensure they are on the correct device
+                xI, xT = batch[0].to(device), batch[1].to(device)
+
+                with torch.no_grad():
+                    # Extract CLIP features
+                    xfI, xfT = CLIP_Net(xI, xT)
+
+                # Compute image and text uncertainties
+                (_, _, _, i_v), (_, _, _, t_v) = multi_fwpass_ProbVLM(
+                    BayesCap_Net=Net,  
+                    xfI=xfI,         
+                    xfT=xfT,         
+                    n_fw=n_fw,
+                )
+
+                print(f"Image uncert: {torch.mean(i_v)}")
+                print(f"Text uncert:  {torch.mean(t_v)}")
+
+                # Store uncertainties (mean across batch samples)
+                image_uncertainties.append(torch.mean(i_v))
+                text_uncertainties.append(torch.mean(t_v))
+
+                # Free up GPU memory after each batch
+                del xI, xT, xfI, xfT  # Delete batch variables to free memory
+                torch.cuda.empty_cache()  # Clear unused memory
+
+        # Average uncertainties over all batches
+        avg_image_uncertainty = np.mean(image_uncertainties)
+        avg_text_uncertainty = np.mean(text_uncertainties)
+        return avg_image_uncertainty, avg_text_uncertainty
+
+    print(f"Evaluating uncertainties on {iod_dataset} (in-distribution)")
+    iod_image_uncertainty, iod_text_uncertainty = estimate_uncertainty_variances(iod_valid_loader, "IOD", Net, CLIP_Net, n_fw=n_fw)
+
+    # Free up memory after IOD evaluation
+    del iod_valid_loader
+    torch.cuda.empty_cache()
+
+    print(f"Evaluating uncertainties on {ood_dataset} (out-of-distribution)")
+    ood_image_uncertainty, ood_text_uncertainty = estimate_uncertainty_variances(ood_valid_loader, "OOD", Net, CLIP_Net, n_fw=n_fw)
+
+    # Free up memory after OOD evaluation
+    del ood_valid_loader
+    torch.cuda.empty_cache()
+
+    # Print results
+    print("\n*** Results ***")
+    print(f"IOD: Avg. Image Uncertainty: {iod_image_uncertainty}, Avg. Text Uncertainty: {iod_text_uncertainty}")
+    print(f"OOD: Avg. Image Uncertainty: {ood_image_uncertainty}, Avg. Text Uncertainty: {ood_text_uncertainty}")
+
+    return {
+        "IOD": {"image_uncertainty": iod_image_uncertainty, "text_uncertainty": iod_text_uncertainty},
+        "OOD": {"image_uncertainty": ood_image_uncertainty, "text_uncertainty": ood_text_uncertainty},
+    }
+
 
 def main():
+    model = "../ckpt/BBB_woKL_Net_best.pth"
     #eval_results = load_and_evaluate()
     #print(eval_results)
-    bin_recalls, bins = load_and_evaluate_uncert()
+    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model)
     print("Recall@1 for each bin:", bin_recalls)
+
+    #iod_ood = compare_iod_vs_ood(ckpt_path=model)
 
 
 if __name__ == "__main__":

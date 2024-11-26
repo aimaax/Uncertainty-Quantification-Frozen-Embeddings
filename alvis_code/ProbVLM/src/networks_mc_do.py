@@ -118,7 +118,7 @@ class BayesCap_for_CLIP_ProbVLM(nn.Module):
         num_layers=3,
         p_drop=0.1
     ):
-        super(BayesCap_for_CLIP, self).__init__()
+        super(BayesCap_for_CLIP_ProbVLM, self).__init__()
         self.img_BayesCap = BayesCap_MLP_ProbVLM(inp_dim=inp_dim, out_dim=out_dim, hid_dim=hid_dim, num_layers=num_layers, p_drop=p_drop)
         self.txt_BayesCap = BayesCap_MLP_ProbVLM(inp_dim=inp_dim, out_dim=out_dim, hid_dim=hid_dim, num_layers=num_layers, p_drop=p_drop)
 
