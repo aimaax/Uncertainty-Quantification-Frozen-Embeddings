@@ -20,6 +20,7 @@ from utils import *
 from ds.vocab import Vocabulary
 
 from networks import *
+from networks_mc_do import *
 
 def eval_ProbVLM(
     CLIP_Net,
@@ -70,6 +71,7 @@ def load_and_evaluate(
     ckpt_path='../ckpt/ProbVLM_Net_best.pth',
     dataset="coco",
     data_dir="../datasets/coco",
+    model_type="ProbVLM",
     batch_size=64,
     device='cuda'
     ):
@@ -81,28 +83,40 @@ def load_and_evaluate(
     })
 
     loaders = load_data_loader(dataset, data_dir, dataloader_config)
-    coco_valid_loader = loaders['val']
+    valid_loader = loaders['val']
 
     # Load CLIP model
     CLIP_Net = load_model(device=device, model_path=None)
 
-    # Define BayesCap network
-    ProbVLM_Net = BayesCap_for_CLIP(
-        inp_dim=512,
-        out_dim=512,
-        hid_dim=256,
-        num_layers=3
-    )
+    if model_type == "BBB":
+        # Define BayesCap network
+        Net = BayesCap_for_CLIP(
+            inp_dim=512,
+            out_dim=512,
+            hid_dim=256,
+            num_layers=3
+        )
+    elif model_type == "ProbVLM":
+        Net = BayesCap_for_CLIP_ProbVLM(
+                inp_dim = 512,
+                out_dim = 512,
+                hid_dim = 256,
+                num_layers=3
+        )
+    else:
+        print(f"Error: Unknown model type '{model}'. Supported models are 'ProbVLM' and 'BBB'.", file=sys.stderr)
+        sys.exit(1) 
+
 
     # Load the checkpoint
     print(f"Loading checkpoint from {ckpt_path}")
-    ProbVLM_Net.load_state_dict(torch.load(ckpt_path, map_location=device))
+    Net.load_state_dict(torch.load(ckpt_path, map_location=device))
 
     # Evaluate using the existing `eval_ProbVLM` function
     mean_mae = eval_ProbVLM(
         CLIP_Net,
-        ProbVLM_Net,
-        coco_valid_loader,
+        Net,
+        valid_loader,
         device=device
     )
 
@@ -117,7 +131,8 @@ def uncert_est(
     ckpt_path="../ckpt/ProbVLM_Net_best.pth",
     dataset="coco",
     data_dir="../datasets/coco",
-    batch_size=16,
+    model_type="ProbVLM",
+    batch_size=64,
     n_fw=10,
     device="cuda"
 ):
@@ -132,14 +147,25 @@ def uncert_est(
 
     # Load CLIP model
     CLIP_Net = load_model(device=device, model_path=None)
-
-    # Define BayesCap network
-    Net = BayesCap_for_CLIP(
-        inp_dim=512,
-        out_dim=512,
-        hid_dim=256,
-        num_layers=3
-    )
+    
+    if model_type == "BBB":
+        # Define BayesCap network
+        Net = BayesCap_for_CLIP(
+            inp_dim=512,
+            out_dim=512,
+            hid_dim=256,
+            num_layers=3
+        )
+    elif model_type == "ProbVLM":
+        Net = BayesCap_for_CLIP_ProbVLM(
+            inp_dim=512,
+            out_dim=512,
+            hid_dim=256,
+            num_layers=3
+        )
+    else:
+        print(f"Error: Unknown model type '{model}'. Supported models are 'ProbVLM' and 'BBB'.", file=sys.stderr)
+        sys.exit(1)
 
     # Load the checkpoint
     print(f"Loading checkpoint from {ckpt_path}")
@@ -169,9 +195,32 @@ def uncert_est(
                     xfT=xfT,         
                     n_fw=n_fw,
                 )
+            if idx == 2:
+                print(f"i_v: {i_v}")
+                print(f"t_v: {t_v}")
+                print(f"mean i_v: {i_v.mean().item()}")
+                print(f"mean t_v: {t_v.mean().item()}")
+                print(f"Max i_v: {i_v.max().item()}, Min i_v: {i_v.min().item()}")
+                print(f"Max t_v: {t_v.max().item()}, Min t_v: {t_v.min().item()}")
+                print(f"i_v shape: {i_v.shape}, t_v shape: {t_v.shape}")
 
-            print(f"Image uncert: {torch.mean(i_v)}")
-            print(f"Text uncert:  {torch.mean(t_v)}")
+                # Convert tensors to CPU for saving
+                i_v_cpu = i_v.cpu().numpy()
+                t_v_cpu = t_v.cpu().numpy()
+
+                # Save i_v
+                with open("i_v_batch_2.txt", "w") as f:
+                    f.write("i_v Tensor:\n")
+                    for row in i_v_cpu:
+                        f.write(" ".join(map(str, row)) + "\n")
+
+                # Save t_v
+                with open("t_v_batch_2.txt", "w") as f:
+                    f.write("t_v Tensor:\n")
+                    for row in t_v_cpu:
+                        f.write(" ".join(map(str, row)) + "\n")
+
+                print("Tensors saved to 'i_v_batch_2.txt' and 't_v_batch_2.txt'")
 
             image_uncertainties.append(i_v.mean().item())
             text_uncertainties.append(t_v.mean().item())
@@ -189,9 +238,11 @@ def uncert_est(
 
 
 def main():
-    model = "../ckpt/BBB_woKL_Net_best.pth"
-    uncert_coco = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco")
-    #uncert_flickr = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr")
+    #model = "../ckpt/BBB_woKL_Net_best.pth"
+    model = "../ckpt/ProbVLM_Net_best.pth"
+    #mae_coco_probvlm = load_and_evaluate(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
+    #mae_flickr_probvlm = load_and_evaluate(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
+    uncert_coco_probvlm = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,6 @@
 /alvis_code/ProbVLM/datasets/
-/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/scripts/output_logs
-/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/slurm*
+/alvis_code/ProbVLM/src/scripts/output_logs
+/alvis_code/ProbVLM/src/slurm*
+/alvis_code/ProbVLM/src/output_eval_slurm
+/alvis_code/ProbVLM/src/output_train_slurm
+/alvis_code/ProbVLM/src/output_edward_slurm

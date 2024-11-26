@@ -73,10 +73,23 @@ Friday:
 
 
 Week 48:
-    To do list. 
-    Train ProbVLM for reference
-    Add KL divergence term to loss function
-    Evaluate uncertainty for out of distribution data
+    To do list: 
+    	1. Investigate sigma prior and mu prior
+	2. Investigate adaptive learning rate (problems with MSE jumping)
+	3. Rerun uncertainty estimate for when the new BBB algo is done
+	4. PCA to visualize the embedding space
+	5. Produce ROC-curves
+	6. Downstream task
+
+    Questions for Prashant on Friday:
+    	1. Good mu and sigma prior?
+	2. Discuss the BNN architecture (is 3 layers enough)
+	3. Discuss adaptive learning rate and early stopping (if we want to compare time)
+		also ProbVLM doesn't use adaptive learning rate and they have fixed epochs
+	4. When we inspect uncertainty from multiple forward pass some of the values are very 
+		large -> infinite epistemic uncertainty (even for ProbVLM)
+	5. Downstream task
+	6. The loss for ProbVLM is 2 from start and ends at 1.5, BBB is 10e8 at start and ends at 17
 
 Monday:
 	Training ProbVLM and BBB (with the additional KL term in the loss).

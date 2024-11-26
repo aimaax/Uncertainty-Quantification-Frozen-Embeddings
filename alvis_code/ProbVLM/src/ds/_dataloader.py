@@ -375,7 +375,7 @@ def _get_coco_file_paths(dataset_root):
 def prepare_coco_dataloaders(dataloader_config,
                              dataset_root,
                              vocab_path='./vocabs/coco_vocab.pkl',
-                             num_workers=32):
+                             num_workers=16):
     """Prepare MS-COCO Caption train / val / test dataloaders
     Args:
         dataloader_config (dict): configuration file which should contain "batch_size"
@@ -453,7 +453,7 @@ def _get_flickr_loader(image_root,
 def prepare_flickr_dataloaders(dataloader_config,
                                dataset_root,
                                vocab_path='./vocabs/coco_vocab.pkl',
-                               num_workers=32):
+                               num_workers=16):
     """Prepare MS-COCO Caption train / val / test dataloaders
     Args:
         dataloader_config (dict): configuration file which should contain "batch_size"

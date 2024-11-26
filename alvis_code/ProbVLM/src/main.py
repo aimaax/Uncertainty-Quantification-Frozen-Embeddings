@@ -71,7 +71,7 @@ def train_ProbVLM(
     }
 
     score = 1e8
-    start_time = time.time()
+    start_time = tsdflkidfe.time()
 
     for eph in range(num_epochs):
         eph_loss = 0
@@ -122,6 +122,8 @@ def train_ProbVLM(
                 dtype=dtype,
             )
             print('current score: {} | Last best score: {}'.format(curr_score, score))
+            if model == "BBB":
+                print(f"kl: {kl} | kl_weight: {kl_weight}")
             metrics["val_mse"].append(val_mse)
             metrics["val_mae"].append(val_mae)
             metrics["epochs"].append(eph)
