@@ -238,11 +238,14 @@ def uncert_est(
 
 
 def main():
-    #model = "../ckpt/BBB_woKL_Net_best.pth"
-    model = "../ckpt/ProbVLM_Net_best.pth"
-    #mae_coco_probvlm = load_and_evaluate(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
+    model = "../ckpt/BBB_Net_best.pth"
+    #model = "../ckpt/ProbVLM_Net_best.pth"
+    #mae_coco_probvlm = load_and_evaluate(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
     #mae_flickr_probvlm = load_and_evaluate(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
-    uncert_coco_probvlm = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
+    #uncert_coco_BBB = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
+    uncert_flicker_BBB = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB")
+    #uncert_coco_probvlm = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
+    #uncert_flickr_probvlm = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
 
 if __name__ == "__main__":
     main()

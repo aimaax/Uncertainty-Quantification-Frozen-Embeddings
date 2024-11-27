@@ -20,7 +20,7 @@ from utils import *
 from ds.vocab import Vocabulary
 
 from networks import *
-
+from networks_mc_do import *
 
 
 
@@ -158,10 +158,11 @@ def eval_ProbVLM_uncert(
         
         indices = [sample[0] for sample in samples]  # Extract indices from sorted list
         bin_query_features = torch.stack([r_dict['ir_f'][i] for i in indices])
-        bin_gallery_features = torch.stack(r_dict['t_f'])  # All gallery features
+        bin_gallery_features = torch.stack(r_dict['tr_f'])  # All gallery features
+        
         # append PCA lists
-        PCA_query_features = np.concatenate((PCA_query_features, bin_query_features.cpu().numpy()), axis=0)
-        np.save('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/PCA_query_features.npy', PCA_query_features)
+        #PCA_query_features = np.concatenate((PCA_query_features, bin_query_features.cpu().numpy()), axis=0)
+        #np.save('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/PCA_query_features.npy', PCA_query_features)
         pred_ranks = get_pred_ranks(bin_query_features, bin_gallery_features, recall_ks=(1,))
         
         if counter == 0:
@@ -173,8 +174,8 @@ def eval_ProbVLM_uncert(
         recall_scores = get_recall_COCOFLICKR(pred_ranks, recall_ks=(1,), q_idx=indices)
         bin_recalls.append(recall_scores[0])
 
-    PCA_gallery_features = np.concatenate((PCA_gallery_features, bin_gallery_features.cpu().numpy()), axis=0)
-    np.save("/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/PCA_gallery_features.npy", PCA_gallery_features)
+    #PCA_gallery_features = np.concatenate((PCA_gallery_features, bin_gallery_features.cpu().numpy()), axis=0)
+    #np.save("/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/PCA_gallery_features.npy", PCA_gallery_features)
     return bin_recalls, bins
 
 
@@ -186,6 +187,7 @@ def load_and_evaluate_uncert(
     device='cuda',
     n_bins=5,
     bins_type='eq_samples',
+    model_type="ProbVLM"
 ):
     # Load data loaders
     dataloader_config = mch({
@@ -201,12 +203,20 @@ def load_and_evaluate_uncert(
     CLIP_Net = load_model(device=device, model_path=None)
 
     # Define BayesCap network
-    ProbVLM_Net = BayesCap_for_CLIP(
-        inp_dim=512,
-        out_dim=512,
-        hid_dim=256,
-        num_layers=3
-    )
+    if model_type == "BBB":
+        ProbVLM_Net = BayesCap_for_CLIP(
+            inp_dim=512,
+            out_dim=512,
+            hid_dim=256,
+            num_layers=3
+        )
+    elif model_type == "ProbVLM":
+        ProbVLM_Net = BayesCap_for_CLIP_ProbVLM(
+            inp_dim=512,
+            out_dim=512,
+            hid_dim=256,
+            num_layers=3
+        )
 
     # Load the checkpoint
     print(f"Loading checkpoint from {ckpt_path}")
@@ -237,10 +247,11 @@ def load_and_evaluate_uncert(
     return bin_recalls, bins
 
 def main():
-    model = "../ckpt/BBB_woKL_Net_best.pth"
+    #model = "../ckpt/BBB_woKL_Net_best.pth"
+    model = "../ckpt/ProbVLM_Net_best.pth"
     #eval_results = load_and_evaluate()
     #print(eval_results)
-    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model)
+    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_spacing", model_type="ProbVLM")
     print("Recall@1 for each bin:", bin_recalls)
 
     #iod_ood = compare_iod_vs_ood(ckpt_path=model)

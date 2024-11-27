@@ -209,14 +209,16 @@ def multi_fwpass_ProbVLM(
     i_beta_m, i_beta_v = torch.mean(i_beta, dim=0), torch.var(i_beta, dim=0)
     i_uncer_m, i_uncer_v = torch.mean(i_uncer, dim=0), torch.var(i_uncer, dim=0)
     # i_v = i_mu_v + i_alpha_v + 1/i_beta_v
-    i_v = (i_uncer_v * i_mu_v)**(1/2) # epistemic ??
+    #i_v = (i_uncer_v * i_mu_v)**(1/2) # epistemic ?? original
+    i_v = i_mu_v # edward
     ##
     t_mu_m, t_mu_v = torch.mean(t_mu, dim=0), torch.var(t_mu, dim=0)
     t_alpha_m, t_alpha_v = torch.mean(t_alpha, dim=0), torch.var(t_alpha, dim=0)
     t_beta_m, t_beta_v = torch.mean(t_beta, dim=0), torch.var(t_beta, dim=0)
     t_uncer_m, t_uncer_v = torch.mean(t_uncer, dim=0), torch.var(t_uncer, dim=0)
     # t_v = t_mu_v + t_alpha_v + 1/t_beta_v
-    t_v = (t_uncer_v * t_mu_v)**(1/2) # epistemic ??
+    #t_v = (t_uncer_v * t_mu_v)**(1/2) # epistemic ?? original
+    t_v = t_mu_v # edward
     
     return (i_mu_m, i_alpha_m, i_beta_m, i_v), (t_mu_m, t_alpha_m, t_beta_m, t_v)
  
