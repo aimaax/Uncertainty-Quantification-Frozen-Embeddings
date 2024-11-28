@@ -1,128 +1,0 @@
-This job can be monitored from: https://job.c3se.chalmers.se/alvis/3191018
-Lmod has detected the following error: The following module(s) are unknown:
-"ftfy"
-
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "ftfy"
-
-Also make sure that all modulefiles written in TCL start with the string
-#%Module
-
-
-
-/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 32 worker processes in total. Our suggested max number of worker in current system is 16, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
-  warnings.warn(_create_warning_msg(
-/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl
-creating index...
-index created!
-Loading COCO Caption: n_images 113287 n_captions 566435...
-loading annotations into memory...
-Done (t=0.24s)
-creating index...
-index created!
-Loading COCO Caption: n_images 1000 n_captions 5000...
-loading annotations into memory...
-Done (t=0.22s)
-creating index...
-index created!
-Loading COCO Caption: n_images 5000 n_captions 25000...
-Loading checkpoint from ../ckpt/BBB_woKL_Net_best.pth
-  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:04<05:40,  4.36s/it]  3%|▎         | 2/79 [00:05<03:22,  2.63s/it]  4%|▍         | 3/79 [00:06<02:07,  1.68s/it]  5%|▌         | 4/79 [00:07<01:46,  1.42s/it]  6%|▋         | 5/79 [00:07<01:21,  1.10s/it]  8%|▊         | 6/79 [00:08<01:06,  1.10it/s]  9%|▉         | 7/79 [00:09<01:15,  1.05s/it] 10%|█         | 8/79 [00:10<01:03,  1.13it/s] 11%|█▏        | 9/79 [00:10<00:54,  1.29it/s] 13%|█▎        | 10/79 [00:11<00:49,  1.40it/s] 14%|█▍        | 11/79 [00:11<00:45,  1.51it/s] 15%|█▌        | 12/79 [00:13<01:07,  1.00s/it] 16%|█▋        | 13/79 [00:14<00:55,  1.20it/s] 18%|█▊        | 14/79 [00:14<00:46,  1.39it/s] 19%|█▉        | 15/79 [00:15<00:41,  1.56it/s] 20%|██        | 16/79 [00:15<00:36,  1.72it/s] 22%|██▏       | 17/79 [00:15<00:33,  1.85it/s] 23%|██▎       | 18/79 [00:18<01:00,  1.01it/s] 24%|██▍       | 19/79 [00:18<00:49,  1.20it/s] 25%|██▌       | 20/79 [00:18<00:42,  1.40it/s] 27%|██▋       | 21/79 [00:19<00:36,  1.58it/s] 28%|██▊       | 22/79 [00:19<00:32,  1.74it/s] 29%|██▉       | 23/79 [00:20<00:30,  1.86it/s] 30%|███       | 24/79 [00:20<00:28,  1.95it/s] 32%|███▏      | 25/79 [00:21<00:26,  2.03it/s] 33%|███▎      | 26/79 [00:23<01:01,  1.15s/it] 34%|███▍      | 27/79 [00:24<00:48,  1.06it/s] 35%|███▌      | 28/79 [00:24<00:40,  1.26it/s] 37%|███▋      | 29/79 [00:25<00:34,  1.45it/s] 38%|███▊      | 30/79 [00:25<00:30,  1.62it/s] 39%|███▉      | 31/79 [00:26<00:27,  1.77it/s] 41%|████      | 32/79 [00:26<00:24,  1.89it/s] 42%|████▏     | 33/79 [00:26<00:23,  1.97it/s] 43%|████▎     | 34/79 [00:27<00:21,  2.05it/s] 44%|████▍     | 35/79 [00:31<01:02,  1.42s/it] 46%|████▌     | 36/79 [00:31<00:48,  1.13s/it] 47%|████▋     | 37/79 [00:31<00:38,  1.09it/s] 48%|████▊     | 38/79 [00:32<00:32,  1.28it/s] 49%|████▉     | 39/79 [00:32<00:27,  1.47it/s] 51%|█████     | 40/79 [00:33<00:23,  1.64it/s] 52%|█████▏    | 41/79 [00:33<00:21,  1.79it/s] 53%|█████▎    | 42/79 [00:34<00:19,  1.90it/s] 54%|█████▍    | 43/79 [00:34<00:18,  1.98it/s] 56%|█████▌    | 44/79 [00:35<00:17,  2.06it/s] 57%|█████▋    | 45/79 [00:35<00:16,  2.11it/s] 58%|█████▊    | 46/79 [00:35<00:15,  2.15it/s] 59%|█████▉    | 47/79 [00:40<00:53,  1.67s/it] 61%|██████    | 48/79 [00:40<00:40,  1.30s/it] 62%|██████▏   | 49/79 [00:41<00:31,  1.05s/it] 63%|██████▎   | 50/79 [00:41<00:25,  1.16it/s] 65%|██████▍   | 51/79 [00:42<00:20,  1.35it/s] 66%|██████▌   | 52/79 [00:42<00:17,  1.53it/s] 67%|██████▋   | 53/79 [00:43<00:15,  1.69it/s] 68%|██████▊   | 54/79 [00:43<00:13,  1.83it/s] 70%|██████▉   | 55/79 [00:43<00:12,  1.94it/s] 71%|███████   | 56/79 [00:44<00:11,  2.01it/s] 72%|███████▏  | 57/79 [00:44<00:10,  2.07it/s] 73%|███████▎  | 58/79 [00:45<00:09,  2.13it/s] 75%|███████▍  | 59/79 [00:45<00:09,  2.15it/s] 76%|███████▌  | 60/79 [00:46<00:08,  2.15it/s] 77%|███████▋  | 61/79 [00:51<00:36,  2.03s/it] 78%|███████▊  | 62/79 [00:52<00:26,  1.56s/it] 80%|███████▉  | 63/79 [00:52<00:19,  1.23s/it] 81%|████████  | 64/79 [00:53<00:14,  1.00it/s] 82%|████████▏ | 65/79 [00:53<00:11,  1.20it/s] 84%|████████▎ | 66/79 [00:54<00:09,  1.38it/s] 85%|████████▍ | 67/79 [00:54<00:07,  1.55it/s] 86%|████████▌ | 68/79 [00:55<00:06,  1.70it/s] 87%|████████▋ | 69/79 [00:55<00:05,  1.81it/s] 89%|████████▊ | 70/79 [00:56<00:04,  1.89it/s] 90%|████████▉ | 71/79 [00:56<00:04,  1.96it/s] 91%|█████████ | 72/79 [00:57<00:03,  2.02it/s] 92%|█████████▏| 73/79 [00:57<00:02,  2.07it/s] 94%|█████████▎| 74/79 [00:57<00:02,  2.12it/s] 95%|█████████▍| 75/79 [00:58<00:01,  2.13it/s] 96%|█████████▌| 76/79 [00:58<00:01,  2.14it/s] 97%|█████████▋| 77/79 [00:59<00:00,  2.16it/s] 99%|█████████▊| 78/79 [00:59<00:00,  2.19it/s]100%|██████████| 79/79 [00:59<00:00,  1.32it/s]
-Query: tensor([[-0.5347,  1.4942, -0.1150,  ...,  4.4219, -0.1080, -0.1404],
-        [-0.5347,  1.4942, -0.1150,  ...,  4.4219, -0.1080, -0.1404],
-        [-0.5347,  1.4942, -0.1150,  ...,  4.4219, -0.1080, -0.1404],
-        ...,
-        [-0.5269,  1.4944, -0.1195,  ...,  4.4076, -0.1082, -0.1387],
-        [-0.5269,  1.4944, -0.1195,  ...,  4.4076, -0.1082, -0.1387],
-        [-0.5269,  1.4944, -0.1195,  ...,  4.4076, -0.1082, -0.1387]],
-       device='cuda:0')
-Gallery: tensor([[ 0.0013,  0.0020, -0.0084,  ...,  0.0263, -0.0050, -0.0237],
-        [ 0.0013,  0.0020, -0.0084,  ...,  0.0263, -0.0050, -0.0237],
-        [ 0.0013,  0.0020, -0.0084,  ...,  0.0263, -0.0050, -0.0237],
-        ...,
-        [ 0.0016,  0.0020, -0.0085,  ...,  0.0260, -0.0047, -0.0232],
-        [ 0.0016,  0.0020, -0.0085,  ...,  0.0260, -0.0047, -0.0232],
-        [ 0.0016,  0.0020, -0.0085,  ...,  0.0260, -0.0047, -0.0232]],
-       device='cuda:0')
-Pred Ranks: [[4695]
- [4695]
- [4695]
- ...
- [4695]
- [4695]
- [4695]]
-Indices: [4999, 4998, 4997, 4996, 4995, 4994, 4993, 4992, 4991, 4990, 4989, 4988, 4987, 4986, 4985, 4984, 4983, 4982, 4981, 4980, 4979, 4978, 4977, 4976, 4975, 4974, 4973, 4972, 4971, 4970, 4969, 4968, 4967, 4966, 4965, 4964, 4963, 4962, 4961, 4960, 4959, 4958, 4957, 4956, 4955, 4954, 4953, 4952, 4951, 4950, 4949, 4948, 4947, 4946, 4945, 4944, 4943, 4942, 4941, 4940, 4939, 4938, 4937, 4936, 4935, 4934, 4933, 4932, 4931, 4930, 4929, 4928, 4927, 4926, 4925, 4924, 4923, 4922, 4921, 4920, 4919, 4918, 4917, 4916, 4915, 4914, 4913, 4912, 4911, 4910, 4909, 4908, 4907, 4906, 4905, 4904, 4903, 4902, 4901, 4900, 4899, 4898, 4897, 4896, 4895, 4894, 4893, 4892, 4891, 4890, 4889, 4888, 4887, 4886, 4885, 4884, 4883, 4882, 4881, 4880, 4879, 4878, 4877, 4876, 4875, 4874, 4873, 4872, 4871, 4870, 4869, 4868, 4867, 4866, 4865, 4864, 4863, 4862, 4861, 4860, 4859, 4858, 4857, 4856, 4855, 4854, 4853, 4852, 4851, 4850, 4849, 4848, 4847, 4846, 4845, 4844, 4843, 4842, 4841, 4840, 4839, 4838, 4837, 4836, 4835, 4834, 4833, 4832, 4831, 4830, 4829, 4828, 4827, 4826, 4825, 4824, 4823, 4822, 4821, 4820, 4819, 4818, 4817, 4816, 4815, 4814, 4813, 4812, 4811, 4810, 4809, 4808, 4807, 4806, 4805, 4804, 4803, 4802, 4801, 4800, 4799, 4798, 4797, 4796, 4795, 4794, 4793, 4792, 4791, 4790, 4789, 4788, 4787, 4786, 4785, 4784, 4783, 4782, 4781, 4780, 4779, 4778, 4777, 4776, 4775, 4774, 4773, 4772, 4771, 4770, 4769, 4768, 4767, 4766, 4765, 4764, 4763, 4762, 4761, 4760, 4759, 4758, 4757, 4756, 4755, 4754, 4753, 4752, 4751, 4750, 4749, 4748, 4747, 4746, 4745, 4744, 4743, 4742, 4741, 4740, 4739, 4738, 4737, 4736, 4735, 4734, 4733, 4732, 4731, 4730, 4729, 4728, 4727, 4726, 4725, 4724, 4723, 4722, 4721, 4720, 4719, 4718, 4717, 4716, 4715, 4714, 4713, 4712, 4711, 4710, 4709, 4708, 4707, 4706, 4705, 4704, 4703, 4702, 4701, 4700, 4699, 4698, 4697, 4696, 4695, 4694, 4693, 4692, 4691, 4690, 4689, 4688, 4687, 4686, 4685, 4684, 4683, 4682, 4681, 4680, 4679, 4678, 4677, 4676, 4675, 4674, 4673, 4672, 4671, 4670, 4669, 4668, 4667, 4666, 4665, 4664, 4663, 4662, 4661, 4660, 4659, 4658, 4657, 4656, 4655, 4654, 4653, 4652, 4651, 4650, 4649, 4648, 4647, 4646, 4645, 4644, 4643, 4642, 4641, 4640, 4639, 4638, 4637, 4636, 4635, 4634, 4633, 4632, 4631, 4630, 4629, 4628, 4627, 4626, 4625, 4624, 4623, 4622, 4621, 4620, 4619, 4618, 4617, 4616, 4615, 4614, 4613, 4612, 4611, 4610, 4609, 4608, 4607, 4606, 4605, 4604, 4603, 4602, 4601, 4600, 4599, 4598, 4597, 4596, 4595, 4594, 4593, 4592, 4591, 4590, 4589, 4588, 4587, 4586, 4585, 4584, 4583, 4582, 4581, 4580, 4579, 4578, 4577, 4576, 4575, 4574, 4573, 4572, 4571, 4570, 4569, 4568, 4567, 4566, 4565, 4564, 4563, 4562, 4561, 4560, 4559, 4558, 4557, 4556, 4555, 4554, 4553, 4552, 4551, 4550, 4549, 4548, 4547, 4546, 4545, 4544, 4543, 4542, 4541, 4540, 4539, 4538, 4537, 4536, 4535, 4534, 4533, 4532, 4531, 4530, 4529, 4528, 4527, 4526, 4525, 4524, 4523, 4522, 4521, 4520, 4519, 4518, 4517, 4516, 4515, 4514, 4513, 4512, 4511, 4510, 4509, 4508, 4507, 4506, 4505, 4504, 4503, 4502, 4501, 4500, 4499, 4498, 4497, 4496, 4495, 4494, 4493, 4492, 4491, 4490, 4489, 4488, 4487, 4486, 4485, 4484, 4483, 4482, 4481, 4480, 4479, 4478, 4477, 4476, 4475, 4474, 4473, 4472, 4471, 4470, 4469, 4468, 4467, 4466, 4465, 4464, 4463, 4462, 4461, 4460, 4459, 4458, 4457, 4456, 4455, 4454, 4453, 4452, 4451, 4450, 4449, 4448, 4447, 4446, 4445, 4444, 4443, 4442, 4441, 4440, 4439, 4438, 4437, 4436, 4435, 4434, 4433, 4432, 4431, 4430, 4429, 4428, 4427, 4426, 4425, 4424, 4423, 4422, 4421, 4420, 4419, 4418, 4417, 4416, 4415, 4414, 4413, 4412, 4411, 4410, 4409, 4408, 4407, 4406, 4405, 4404, 4403, 4402, 4401, 4400, 4399, 4398, 4397, 4396, 4395, 4394, 4393, 4392, 4391, 4390, 4389, 4388, 4387, 4386, 4385, 4384, 4383, 4382, 4381, 4380, 4379, 4378, 4377, 4376, 4375, 4374, 4373, 4372, 4371, 4370, 4369, 4368, 4367, 4366, 4365, 4364, 4363, 4362, 4361, 4360, 4359, 4358, 4357, 4356, 4355, 4354, 4353, 4352, 4351, 4350, 4349, 4348, 4347, 4346, 4345, 4344, 4343, 4342, 4341, 4340, 4339, 4338, 4337, 4336, 4335, 4334, 4333, 4332, 4331, 4330, 4329, 4328, 4327, 4326, 4325, 4324, 4323, 4322, 4321, 4320, 4319, 4318, 4317, 4316, 4315, 4314, 4313, 4312, 4311, 4310, 4309, 4308, 4307, 4306, 4305, 4304, 4303, 4302, 4301, 4300, 4299, 4298, 4297, 4296, 4295, 4294, 4293, 4292, 4291, 4290, 4289, 4288, 4287, 4286, 4285, 4284, 4283, 4282, 4281, 4280, 4279, 4278, 4277, 4276, 4275, 4274, 4273, 4272, 4271, 4270, 4269, 4268, 4267, 4266, 4265, 4264, 4263, 4262, 4261, 4260, 4259, 4258, 4257, 4256, 4255, 4254, 4253, 4252, 4251, 4250, 4249, 4248, 4247, 4246, 4245, 4244, 4243, 4242, 4241, 4240, 4239, 4238, 4237, 4236, 4235, 4234, 4233, 4232, 4231, 4230, 4229, 4228, 4227, 4226, 4225, 4224, 4223, 4222, 4221, 4220, 4219, 4218, 4217, 4216, 4215, 4214, 4213, 4212, 4211, 4210, 4209, 4208, 4207, 4206, 4205, 4204, 4203, 4202, 4201, 4200, 4199, 4198, 4197, 4196, 4195, 4194, 4193, 4192, 4191, 4190, 4189, 4188, 4187, 4186, 4185, 4184, 4183, 4182, 4181, 4180, 4179, 4178, 4177, 4176, 4175, 4174, 4173, 4172, 4171, 4170, 4169, 4168, 4167, 4166, 4165, 4164, 4163, 4162, 4161, 4160, 4159, 4158, 4157, 4156, 4155, 4154, 4153, 4152, 4151, 4150, 4149, 4148, 4147, 4146, 4145, 4144, 4143, 4142, 4141, 4140, 4139, 4138, 4137, 4136, 4135, 4134, 4133, 4132, 4131, 4130, 4129, 4128, 4127, 4126, 4125, 4124, 4123, 4122, 4121, 4120, 4119, 4118, 4117, 4116, 4115, 4114, 4113, 4112, 4111, 4110, 4109, 4108, 4107, 4106, 4105, 4104, 4103, 4102, 4101, 4100, 4099, 4098, 4097, 4096, 4095, 4094, 4093, 4092, 4091, 4090, 4089, 4088, 4087, 4086, 4085, 4084, 4083, 4082, 4081, 4080, 4079, 4078, 4077, 4076, 4075, 4074, 4073, 4072, 4071, 4070, 4069, 4068, 4067, 4066, 4065, 4064, 4063, 4062, 4061, 4060, 4059, 4058, 4057, 4056, 4055, 4054, 4053, 4052, 4051, 4050, 4049, 4048, 4047, 4046, 4045, 4044, 4043, 4042, 4041, 4040, 4039, 4038, 4037, 4036, 4035, 4034, 4033, 4032, 4031, 4030, 4029, 4028, 4027, 4026, 4025, 4024, 4023, 4022, 4021, 4020, 4019, 4018, 4017, 4016, 4015, 4014, 4013, 4012, 4011, 4010, 4009, 4008, 4007, 4006, 4005, 4004, 4003, 4002, 4001, 4000, 3999]
-Recall@1 for each bin: [0.981018981018981, 0.0, 0.015015015015015015, 0.0, 0.0]
-/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl
-creating index...
-index created!
-Loading COCO Caption: n_images 113287 n_captions 566435...
-loading annotations into memory...
-Done (t=0.25s)
-creating index...
-index created!
-Loading COCO Caption: n_images 1000 n_captions 5000...
-loading annotations into memory...
-Done (t=0.22s)
-creating index...
-index created!
-Loading COCO Caption: n_images 5000 n_captions 25000...
-Loading Flickr Caption: n_captions 148915...
-Loading Flickr Caption: n_captions 5000...
-Loading Flickr Caption: n_captions 5000...
-Loading checkpoint from ../ckpt/BBB_woKL_Net_best.pth
-Evaluating uncertainties on coco (in-distribution)
-Estimating uncertainties on IOD:   0%|          | 0/313 [00:00<?, ?batch/s]Estimating uncertainties on IOD:   0%|          | 0/313 [00:03<?, ?batch/s]
-Traceback (most recent call last):
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 338, in <module>
-    main()
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 334, in main
-    iod_ood = compare_iod_vs_ood(ckpt_path=model)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 311, in compare_iod_vs_ood
-    iod_image_uncertainty, iod_text_uncertainty = estimate_uncertainty_variances(iod_valid_loader, "IOD", Net, CLIP_Net, n_fw=n_fw)
-                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/uncertainty_estimates.py", line 294, in estimate_uncertainty_variances
-    (_, _, _, i_v), (_, _, _, t_v) = multi_fwpass_ProbVLM(
-                                     ^^^^^^^^^^^^^^^^^^^^^
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/utils.py", line 186, in multi_fwpass_ProbVLM
-    (img_mu, img_1alpha, img_beta), (txt_mu, txt_1alpha, txt_beta) = BayesCap_Net(xfI, xfT)
-                                                                     ^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/networks.py", line 140, in forward
-    img_mu, img_1alpha, img_beta = self.img_BayesCap(i_features)
-                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/networks.py", line 88, in forward
-    x_intr = self.mod(x)
-             ^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/container.py", line 215, in forward
-    input = module(input)
-            ^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/apps/Arch/software/PyTorch/2.1.2-foss-2023a-CUDA-12.1.1/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/UQ_venv/lib/python3.11/site-packages/torchbnn/modules/linear.py", line 98, in forward
-    return F.linear(input, weight, bias)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking argument for argument mat1 in method wrapper_CUDA_addmm)

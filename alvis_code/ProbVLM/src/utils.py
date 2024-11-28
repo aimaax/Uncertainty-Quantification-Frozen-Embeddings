@@ -50,7 +50,7 @@ def get_recall(pred_ranks_all, recall_ks=(1,5,10), n_gallery_per_query=5):
     existence = lambda arr1, arr2: any([i in arr2 for i in arr1])
     def gt_idxs(query_idx):
         if n_gallery_per_query >= 1:
-            return np.arange(query_idx * n_gallery_per_query, 
+            return np.arange(query_idx * n_gallery_per_query,
                              (query_idx + 1) * n_gallery_per_query)
         else:
             return np.array([int(query_idx * n_gallery_per_query)])
@@ -77,7 +77,7 @@ def get_recall_COCOFLICKR(pred_ranks_all, recall_ks=(1,5,10), n_gallery_per_quer
     existence = lambda arr1, arr2: any([i in arr2 for i in arr1])
     def gt_idxs(query_idx):
         if n_gallery_per_query >= 1:
-            return np.arange(query_idx * n_gallery_per_query, 
+            return np.arange(query_idx * n_gallery_per_query,
                              (query_idx + 1) * n_gallery_per_query)
         else:
             return np.array([int(query_idx * n_gallery_per_query)])
@@ -159,12 +159,17 @@ def emb_mse(x1, x2):
     m = torch.pow(torch.abs(x1-x2),2).mean()
     return m
 
-def get_GGuncer(x_alpha, x_beta, c1=3, c2=2.8):
-    a = 1/(x_alpha + 1e-5)
+def get_GGuncer(x_alpha, x_beta, print_u="False"):
+    # a = 1/(x_alpha + 1e-5) # precision = 1 / variance
+    a = x_alpha + 1e-5
     a = torch.clip(a, min=1e-4, max=5)
-    b = x_beta + 0.1
-    b = torch.clip(b, min=0.1, max=5)
+    b = x_beta
+    b = torch.clip(x_beta, min=0.1, max=5)
     u = (a**2)*torch.exp(torch.lgamma(3/b))/torch.exp(torch.lgamma(1.0/b))
+    if print_u == "True":
+        print("u:", u)
+        print("a:", a)
+        print("b:", b)
     return u
     
 def multi_fwpass_ProbVLM(
@@ -192,7 +197,7 @@ def multi_fwpass_ProbVLM(
         list_t_mu.append(txt_mu.unsqueeze(0))
         list_t_alpha.append(txt_1alpha.unsqueeze(0))
         list_t_beta.append(txt_beta.unsqueeze(0))
-        list_t_uncer.append(get_GGuncer(txt_1alpha, txt_beta, c1=3, c2=2))
+        list_t_uncer.append(get_GGuncer(txt_1alpha, txt_beta))
     ##
     i_mu = torch.cat(list_i_mu, dim=0)
     i_alpha = torch.cat(list_i_alpha, dim=0)
@@ -209,16 +214,16 @@ def multi_fwpass_ProbVLM(
     i_beta_m, i_beta_v = torch.mean(i_beta, dim=0), torch.var(i_beta, dim=0)
     i_uncer_m, i_uncer_v = torch.mean(i_uncer, dim=0), torch.var(i_uncer, dim=0)
     # i_v = i_mu_v + i_alpha_v + 1/i_beta_v
-    #i_v = (i_uncer_v * i_mu_v)**(1/2) # epistemic ?? original
-    i_v = i_mu_v # edward
+    i_v = (i_uncer_v * i_mu_v)**(1/2) # epistemic ?? original
+    #i_v = i_mu_v # edward
     ##
     t_mu_m, t_mu_v = torch.mean(t_mu, dim=0), torch.var(t_mu, dim=0)
     t_alpha_m, t_alpha_v = torch.mean(t_alpha, dim=0), torch.var(t_alpha, dim=0)
     t_beta_m, t_beta_v = torch.mean(t_beta, dim=0), torch.var(t_beta, dim=0)
     t_uncer_m, t_uncer_v = torch.mean(t_uncer, dim=0), torch.var(t_uncer, dim=0)
     # t_v = t_mu_v + t_alpha_v + 1/t_beta_v
-    #t_v = (t_uncer_v * t_mu_v)**(1/2) # epistemic ?? original
-    t_v = t_mu_v # edward
+    t_v = (t_uncer_v * t_mu_v)**(1/2) # epistemic ?? original
+    #t_v = t_mu_v # edward
     
     return (i_mu_m, i_alpha_m, i_beta_m, i_v), (t_mu_m, t_alpha_m, t_beta_m, t_v)
  
@@ -250,17 +255,21 @@ def get_features_uncer_ProbVLM(
             outputs = CLIP_Net(i_inputs, t_inputs)
             #recons
             outs = multi_fwpass_ProbVLM(BayesCap_Net, outputs[0], outputs[1])
+            # (i_mu_m, i_alpha_m, i_beta_m, i_v), (t_mu_m, t_alpha_m, t_beta_m, t_v)
             
             for j in range(n_batch):
                 r_dict['i_f'].append(outputs[0][j,:])
                 r_dict['t_f'].append(outputs[1][j,:])
                 r_dict['ir_f'].append(outs[0][0][j,:])
                 r_dict['tr_f'].append(outs[1][0][j,:])
-                u = get_GGuncer(outs[0][1][j,:], outs[0][2][j,:], c1=3, c2=2.8)
+                if j == 2:
+                    u = get_GGuncer(outs[0][1][j,:], outs[0][2][j,:], print_u="True")
+
+                u = get_GGuncer(outs[0][1][j,:], outs[0][2][j,:])
                 r_dict['i_au'].append(u)
                 r_dict['i_eu'].append(outs[0][3][j,:])
                 r_dict['i_u'].append(u+outs[0][3][j,:])
-                u = get_GGuncer(outs[1][1][j,:], outs[1][2][j,:], c1=3, c2=2.8)
+                u = get_GGuncer(outs[1][1][j,:], outs[1][2][j,:])
                 r_dict['t_au'].append(u)
                 r_dict['t_eu'].append(outs[1][3][j,:])
                 r_dict['t_u'].append(u+outs[1][3][j,:])

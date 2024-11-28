@@ -21,6 +21,7 @@ from ds.vocab import Vocabulary
 
 from networks import *
 from networks_mc_do import *
+from networks_BBB_EncBL import *
 from uncertainty_estimates import *
 
 import torchbnn as bnn
@@ -61,8 +62,7 @@ def train_ProbVLM(
 
     # KL divergence for BBB loss
     kl_loss = bnn.BKLLoss(reduction='mean', last_layer_only=False)
-    M = len(train_loader) 
-
+    M = len(train_loader) # number of matches
     metrics = {
         "train_loss": [],
         "val_mse": [],
@@ -71,15 +71,18 @@ def train_ProbVLM(
     }
 
     score = 1e8
-    start_time = tsdflkidfe.time()
+    start_time = time.time()
 
     for eph in range(num_epochs):
+        random_pi = np.random.rand(M)  # Sample random values from a uniform distribution
+        pi = random_pi / random_pi.sum()  # Normalize to make the sum equal to 1
+        pi = torch.tensor(pi, dtype=torch.float32, device=device)  # Move to GPU/CPU
         eph_loss = 0
         BayesCap_Net.train()
         with tqdm(train_loader, unit='batch') as tepoch:
             for (idx, batch) in enumerate(tepoch):
-                #if idx>500:
-                #    break
+                # if idx>500:
+                    # break
                 tepoch.set_description('Epoch {}'.format(eph))
                 ##
                 xI, xT  = batch[0].to(device), batch[1].to(device)
@@ -97,38 +100,39 @@ def train_ProbVLM(
                 loss_t4i = Cri(txt_mu, txt_1alpha, txt_beta, xfI, T1=T1, T2=T2)
                 if model == "ProbVLM":
                     loss = loss_i + loss_t + cross_modal_lambda*(loss_i4t + loss_t4i)
-                elif model == "BBB":
+                elif model == "BBB" or model == "BBB_EncBL":
                     kl = kl_loss(BayesCap_Net)
-                    kl_weight = 2**(M-idx-1)/(2**M-1) # pi_i weight according to paper
+                    #kl_weight = 2**(M-idx-1)/(2**M-1) # BBB paper scheme
+                    kl_weight = pi[idx]  # pi scheme, eq (9)
                     loss = loss_i + loss_t + cross_modal_lambda*(loss_i4t + loss_t4i) + kl_weight*kl
                 # print(loss)
                 loss.backward()
                 optimizer.step()
                 ##
                 eph_loss += loss.item()
-                metrics["train_loss"].append(eph_loss)
                 tepoch.set_postfix(loss=loss.item())
             eph_loss /= len(train_loader)
-            print('Avg. loss: {}'.format(eph_loss))
+            print('Avg. loss per batch: {}'.format(eph_loss))
+            metrics["train_loss"].append(eph_loss)
 
         # evaluate and save the models
         torch.save(BayesCap_Net.state_dict(), ckpt_path+'_last.pth')
         if eph%eval_every == 0:
-            curr_score = eval_ProbVLM(
+            val_mae, val_mse = eval_ProbVLM(
                 CLIP_Net,
                 BayesCap_Net,
                 eval_loader,
                 device=device,
                 dtype=dtype,
             )
-            print('current score: {} | Last best score: {}'.format(curr_score, score))
-            if model == "BBB":
+            print('current mae score: {} | Last best mae score: {}'.format(val_mae, score))
+            if model == "BBB" or model == "BBB_EncBL":
                 print(f"kl: {kl} | kl_weight: {kl_weight}")
             metrics["val_mse"].append(val_mse)
             metrics["val_mae"].append(val_mae)
             metrics["epochs"].append(eph)
-            if curr_score <= score:
-                score = curr_score
+            if val_mae <= score:
+                score = val_mae
                 torch.save(BayesCap_Net.state_dict(), ckpt_path+'_best.pth')
                 early_stop_counter = 0
                 best_epoch = eph
@@ -179,6 +183,14 @@ def main(model):
         )
         
         model_path = "../ckpt/BBB_Net"
+    elif model == "BBB_EncBL":
+        Net = BayesCap_for_CLIP_BBB_Enc(
+                inp_dim = 512,
+                out_dim = 512,
+                hid_dim = 256,
+                num_layers = 3
+        )
+        model_path = "../ckpt/BBB_EncBL"
     else:
         # Print an error message and exit the program
         print(f"Error: Unknown model type '{model}'. Supported models are 'ProbVLM' and 'BBB'.", file=sys.stderr)

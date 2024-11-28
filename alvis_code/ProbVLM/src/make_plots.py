@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 import matplotlib.pyplot as plt
 
 
@@ -50,15 +51,34 @@ def plot_MSE_MAE(metrics, save_path="../ckpt/", model_name="model"):
     path = save_path + model_name + "_MSE_MAE.png" 
     plt.savefig(path, dpi=300)
 
+def convert_tensors_in_lists(data):
+    """
+    Recursively convert tensors in lists or nested structures to NumPy arrays.
+    """
+    if isinstance(data, list):
+        return [convert_tensors_in_lists(item) for item in data]
+    elif isinstance(data, torch.Tensor):
+        return data.cpu().numpy()
+    else:
+        return data
 
 def main():
-    metrics = np.load("../ckpt/ProbVLM_metrics.npy", allow_pickle=True).item()
-    save_path = "../ckpt/"
+    # Load the metrics file
+    #metrics = np.load("../ckpt/BBB_EncBL_metrics.npy", allow_pickle=True).item()
+    metrics = np.load("../ckpt/ProbVLM_Net_metrics.npy", allow_pickle=True).item()
+    # Convert any tensors within lists or values to NumPy arrays
+    for key in metrics:
+        metrics[key] = convert_tensors_in_lists(metrics[key])
+
+    save_path = "../figs/"
+    #model_name = "BBB_EncBL"
     model_name = "ProbVLM"
     plot_loss(metrics, save_path, model_name)
     plot_MSE(metrics, save_path, model_name)
     plot_MAE(metrics, save_path, model_name)
     plot_MSE_MAE(metrics, save_path, model_name)
+
+    print(f"Plots saved to {save_path}")
 
 
 if __name__ == "__main__":

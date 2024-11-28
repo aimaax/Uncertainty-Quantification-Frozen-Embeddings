@@ -171,79 +171,36 @@ def uncert_est(
     print(f"Loading checkpoint from {ckpt_path}")
     Net.load_state_dict(torch.load(ckpt_path, map_location=device))
 
-    image_uncertainties = []
-    text_uncertainties = []
-
     CLIP_Net.to(device)
     CLIP_Net.eval()
     Net.to(device)
     Net.eval()
+    
+    r_dict = get_features_uncer_ProbVLM(CLIP_Net, Net, valid_loader)
 
-    with tqdm(valid_loader, unit='batch') as tepoch:
-        for (idx, batch) in enumerate(tepoch):
-            tepoch.set_description("Validating ...")
-            xI, xT  = batch[0].to(device), batch[1].to(device)
+    i_eu_list = [elem for sublist in r_dict['i_eu'] for elem in sublist]
+    i_au_list = [elem for sublist in r_dict['i_au'] for elem in sublist]
+    t_eu_list = [elem for sublist in r_dict['t_eu'] for elem in sublist]
+    t_au_list = [elem for sublist in r_dict['t_au'] for elem in sublist]
+    avg_i_eu = sum(i_eu_list) / len(i_eu_list)
+    avg_i_au = sum(i_au_list) / len(i_au_list)
+    avg_t_eu = sum(t_eu_list) / len(t_eu_list)
+    avg_t_au = sum(t_au_list) / len(t_au_list)
 
-            # Extract features using CLIP
-            with torch.no_grad():
-                xfI, xfT = CLIP_Net(xI, xT)
-
-                # Compute image and text uncertainties
-                (_, _, _, i_v), (_, _, _, t_v) = multi_fwpass_ProbVLM(
-                    BayesCap_Net=Net,  
-                    xfI=xfI,         
-                    xfT=xfT,         
-                    n_fw=n_fw,
-                )
-            if idx == 2:
-                print(f"i_v: {i_v}")
-                print(f"t_v: {t_v}")
-                print(f"mean i_v: {i_v.mean().item()}")
-                print(f"mean t_v: {t_v.mean().item()}")
-                print(f"Max i_v: {i_v.max().item()}, Min i_v: {i_v.min().item()}")
-                print(f"Max t_v: {t_v.max().item()}, Min t_v: {t_v.min().item()}")
-                print(f"i_v shape: {i_v.shape}, t_v shape: {t_v.shape}")
-
-                # Convert tensors to CPU for saving
-                i_v_cpu = i_v.cpu().numpy()
-                t_v_cpu = t_v.cpu().numpy()
-
-                # Save i_v
-                with open("i_v_batch_2.txt", "w") as f:
-                    f.write("i_v Tensor:\n")
-                    for row in i_v_cpu:
-                        f.write(" ".join(map(str, row)) + "\n")
-
-                # Save t_v
-                with open("t_v_batch_2.txt", "w") as f:
-                    f.write("t_v Tensor:\n")
-                    for row in t_v_cpu:
-                        f.write(" ".join(map(str, row)) + "\n")
-
-                print("Tensors saved to 'i_v_batch_2.txt' and 't_v_batch_2.txt'")
-
-            image_uncertainties.append(i_v.mean().item())
-            text_uncertainties.append(t_v.mean().item())
-
-    image_uncertainties_tensor = torch.tensor(image_uncertainties)
-    avg_image_uncertainty = image_uncertainties_tensor.cpu().numpy().mean()
-    text_uncertainties_tensor = torch.tensor(text_uncertainties)
-    avg_text_uncertainty = text_uncertainties_tensor.cpu().numpy().mean()
-
-    # Print results
     print("\n*** Results ***")
-    print(f"Avg. Image Uncertainty: {avg_image_uncertainty}, Avg. Text Uncertainty: {avg_text_uncertainty}")
+    print(f"Avg. Image Epistemic Uncertainty: {avg_i_eu}, Avg. Text Epistemic Uncertainty: {avg_t_eu}")
+    print(f"Avg. Image Aleatoric Uncertainty: {avg_i_au}, Avg. Text Aleatoric Uncertainty: {avg_t_au}")
 
-    return (avg_image_uncertainty, avg_text_uncertainty)
+    return (avg_i_eu, avg_t_eu)
 
 
 def main():
-    model = "../ckpt/BBB_Net_best.pth"
+    model = "../ckpt/BBB_Net_best_first_KL.pth"
     #model = "../ckpt/ProbVLM_Net_best.pth"
     #mae_coco_probvlm = load_and_evaluate(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
     #mae_flickr_probvlm = load_and_evaluate(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
-    #uncert_coco_BBB = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
-    uncert_flicker_BBB = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB")
+    uncert_coco_BBB = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
+    #uncert_flicker_BBB = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB")
     #uncert_coco_probvlm = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
     #uncert_flickr_probvlm = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
 

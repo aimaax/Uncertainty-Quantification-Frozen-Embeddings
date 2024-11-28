@@ -50,26 +50,26 @@ class BayesCap_MLP_ProbVLM(nn.Module):
         self.mod = nn.Sequential(*mod)
 
         self.block_mu = nn.Sequential(
-            nn.Linear(out_dim, 128),
+            nn.Linear(out_dim, out_dim),
             nn.ReLU(),
-            nn.Linear(128, out_dim),
+            nn.Linear(out_dim, out_dim),
         )
 
         self.block_alpha = nn.Sequential(
-            nn.Linear(out_dim, 128),
+            nn.Linear(out_dim, out_dim),
             nn.ReLU(),
             # nn.Linear(out_dim, out_dim),
             # nn.ReLU(),
-            nn.Linear(128, out_dim),
+            nn.Linear(out_dim, out_dim),
             nn.ReLU(),
         )
 
         self.block_beta = nn.Sequential(
-            nn.Linear(out_dim, 128),
+            nn.Linear(out_dim, out_dim),
             nn.ReLU(),
             # nn.Linear(out_dim, out_dim),
             # nn.ReLU(),
-            nn.Linear(128, out_dim),
+            nn.Linear(out_dim, out_dim),
             nn.ReLU(),
         )
     
@@ -91,7 +91,7 @@ class BayesCLIP_ProbVLM(nn.Module):
         model_path=None,
         device='cuda',
     ):
-        super(BayesCLIP, self).__init__()
+        super(BayesCLIP_ProbVLM, self).__init__()
         self.clip_model = load_model(device, model_path)
         self.clip_model.eval()
         for param in self.clip_model.parameters():

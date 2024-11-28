@@ -83,17 +83,32 @@ Week 48:
 
     Questions for Prashant on Friday:
     	1. Good mu and sigma prior?
-	2. Discuss the BNN architecture (is 3 layers enough)
+	2. Discuss the BNN architecture (is 3 layers enough). Should we use BL everywhere?
 	3. Discuss adaptive learning rate and early stopping (if we want to compare time)
 		also ProbVLM doesn't use adaptive learning rate and they have fixed epochs
+		(though they have an adaptive learner but it steps outside the for loop????)
 	4. When we inspect uncertainty from multiple forward pass some of the values are very 
 		large -> infinite epistemic uncertainty (even for ProbVLM)
+		From debugging: GG_uncer is the one responsible for the large values. If we remove them we get this for probvlm:
+			coco: 3193504:      Avg. Image Uncertainty: 0.0033659490291029215, Avg. Text Uncertainty: 1.9942842754971934e-07
+			flickr: 3193512:    Avg. Image Uncertainty: 0.0045932624489068985, Avg. Text Uncertainty: 3.777297763463139e-07
+		which makes sense (higher for ood)
 	5. Downstream task
 	6. The loss for ProbVLM is 2 from start and ends at 1.5, BBB is 10e8 at start and ends at 17
+	7. Bayesian Linear layer in Encoder and Decoder of adapter or just in Encoder since dropout is only in Encoder part?
+	8. Why is there no ReLU after the mu block, is there a reason or did they make a mistake?
+	9. get_GGuncer please help
+	10. ProbVLM use a determined LR, should we also or should we go adaptive?
+	11. Why did BBB become so good when we remove the bayesian layers from the decoder
 
 Monday:
 	Training ProbVLM and BBB (with the additional KL term in the loss).
 	Setting up the flickr dataset, and evaluating it. Writing a script to extract the epistemic uncertainty in order to compare the uncertainty
 	for coco vs flickr (coco should be lower since it is trained on it).
 	Trying to debug the recall script (something is still wrong).
-    
+ 
+Tuesday:
+	Debugging what is going wrong with the models and evaluation script. Checking the feature vectors of the samples using PCA. The trained BBB
+	seemed to collapse in the center while the ProbVLM looked better after the dimensionality reduction using PCA. So something went wrong with the 
+	BBB training which we are also trying to debug. It may be the prior of mu and sigma or that we did not include the KL divergence term at first. 
+	Retraining the model is ongoing.     

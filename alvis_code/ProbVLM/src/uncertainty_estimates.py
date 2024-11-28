@@ -67,7 +67,7 @@ def eval_ProbVLM(
                 mean_mse, mean_mae 
             )
         )
-    return mean_mae
+    return mean_mae, mean_mse
 
 def load_and_evaluate(
     ckpt_path='../ckpt/ProbVLM_Net_best.pth',
