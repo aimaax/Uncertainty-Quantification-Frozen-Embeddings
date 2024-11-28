@@ -67,7 +67,8 @@ def train_ProbVLM(
         "train_loss": [],
         "val_mse": [],
         "val_mae": [],
-        "epochs": []
+        "epochs": [],
+        "kl": []
     }
 
     score = 1e8
@@ -128,9 +129,11 @@ def train_ProbVLM(
             print('current mae score: {} | Last best mae score: {}'.format(val_mae, score))
             if model == "BBB" or model == "BBB_EncBL":
                 print(f"kl: {kl} | kl_weight: {kl_weight}")
+                metrics["kl"].append(kl)
             metrics["val_mse"].append(val_mse)
             metrics["val_mae"].append(val_mae)
             metrics["epochs"].append(eph)
+
             if val_mae <= score:
                 score = val_mae
                 torch.save(BayesCap_Net.state_dict(), ckpt_path+'_best.pth')

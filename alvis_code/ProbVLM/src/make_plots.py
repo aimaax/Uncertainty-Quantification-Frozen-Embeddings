@@ -1,4 +1,5 @@
 import numpy as np
+import re
 import torch
 import matplotlib.pyplot as plt
 
@@ -51,6 +52,48 @@ def plot_MSE_MAE(metrics, save_path="../ckpt/", model_name="model"):
     path = save_path + model_name + "_MSE_MAE.png" 
     plt.savefig(path, dpi=300)
 
+
+def plot_kl(metrics, save_path="../ckpt/", model_name="model"):
+    plt.figure(figsize=(10, 6))
+    plt.plot(metrics["epochs"], metrics["kl"], label="KL Divergence Term")
+    plt.xlabel("Epochs")
+    plt.ylabel("KL Divergence Term")
+    plt.title("Loss KL Divergence Term vs. Epochs")
+    plt.legend()
+    plt.grid()
+    path = save_path + model_name + "_KL.png" 
+    plt.savefig(path, dpi=300)
+
+
+def extract_kl_values_from_slurm(file_path):
+    kl_values = []
+
+    # Regular expression to match the KL tensor values
+    kl_pattern = r"kl: tensor\(\[([\d\.\-e]+)\], device='cuda:\d+'"
+
+    with open(file_path, 'r') as file:
+        for line in file:
+            match = re.search(kl_pattern, line)
+            if match:
+                # Extract the numeric value and convert to float
+                kl_value = float(match.group(1))
+                kl_values.append(kl_value)
+
+    return kl_values[:-1]
+
+
+def plot_extracted_kl(kl_values, metrics, save_path="../ckpt/", model_name="model"):
+    plt.figure(figsize=(10, 6))
+    plt.plot(metrics["epochs"], kl_values, label="KL Divergence Term")
+    plt.xlabel("Epochs")
+    plt.ylabel("KL Divergence Term")
+    plt.title("Loss KL Divergence Term vs. Epochs")
+    plt.legend()
+    plt.grid()
+    path = save_path + model_name + "_KL.png" 
+    plt.savefig(path, dpi=300)
+
+
 def convert_tensors_in_lists(data):
     """
     Recursively convert tensors in lists or nested structures to NumPy arrays.
@@ -61,6 +104,7 @@ def convert_tensors_in_lists(data):
         return data.cpu().numpy()
     else:
         return data
+
 
 def main():
     # Load the metrics file
@@ -77,6 +121,9 @@ def main():
     plot_MSE(metrics, save_path, model_name)
     plot_MAE(metrics, save_path, model_name)
     plot_MSE_MAE(metrics, save_path, model_name)
+
+    kl_values = extract_kl_values_from_slurm("./output_train_slurm/BBB_EncBL.out")
+    plot_extracted_kl(kl_values, metrics, save_path, model_name)
 
     print(f"Plots saved to {save_path}")
 

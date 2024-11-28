@@ -160,8 +160,8 @@ def emb_mse(x1, x2):
     return m
 
 def get_GGuncer(x_alpha, x_beta, print_u="False"):
-    # a = 1/(x_alpha + 1e-5) # precision = 1 / variance
-    a = x_alpha + 1e-5
+    a = 1/(x_alpha + 1e-5) # precision = 1 / variance
+    # a = x_alpha + 1e-5
     a = torch.clip(a, min=1e-4, max=5)
     b = x_beta
     b = torch.clip(x_beta, min=0.1, max=5)

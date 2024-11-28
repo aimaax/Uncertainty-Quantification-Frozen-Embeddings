@@ -251,7 +251,7 @@ def main():
     model = "../ckpt/ProbVLM_Net_best.pth"
     #eval_results = load_and_evaluate()
     #print(eval_results)
-    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_spacing", model_type="ProbVLM")
+    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_samples", model_type="ProbVLM")
     print("Recall@1 for each bin:", bin_recalls)
 
     #iod_ood = compare_iod_vs_ood(ckpt_path=model)
