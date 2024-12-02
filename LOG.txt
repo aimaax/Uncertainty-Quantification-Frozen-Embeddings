@@ -82,24 +82,30 @@ Week 48:
 	6. Downstream task
 
     Questions for Prashant on Friday:
-    	1. Good mu and sigma prior?
-	2. Discuss the BNN architecture (is 3 layers enough). Should we use BL everywhere?
-	3. Discuss adaptive learning rate and early stopping (if we want to compare time)
+	1. Mention Max's update to the BNN architecture, does it make sense?
+	2. Discuss adaptive learning rate and early stopping (if we want to compare time)
 		also ProbVLM doesn't use adaptive learning rate and they have fixed epochs
 		(though they have an adaptive learner but it steps outside the for loop????)
-	4. When we inspect uncertainty from multiple forward pass some of the values are very 
-		large -> infinite epistemic uncertainty (even for ProbVLM)
-		From debugging: GG_uncer is the one responsible for the large values. If we remove them we get this for probvlm:
-			coco: 3193504:      Avg. Image Uncertainty: 0.0033659490291029215, Avg. Text Uncertainty: 1.9942842754971934e-07
-			flickr: 3193512:    Avg. Image Uncertainty: 0.0045932624489068985, Avg. Text Uncertainty: 3.777297763463139e-07
-		which makes sense (higher for ood)
-	5. Downstream task
-	6. The loss for ProbVLM is 2 from start and ends at 1.5, BBB is 10e8 at start and ends at 17
-	7. Bayesian Linear layer in Encoder and Decoder of adapter or just in Encoder since dropout is only in Encoder part?
-	8. Why is there no ReLU after the mu block, is there a reason or did they make a mistake?
-	9. get_GGuncer please help
-	10. ProbVLM use a determined LR, should we also or should we go adaptive?
-	11. Why did BBB become so good when we remove the bayesian layers from the decoder
+
+		ProbVLM was faster than BBB per epoch
+		Also evaluation MSE and MAE was better for ProbVLM but better loss for BBB.
+		Maybe this is not relevant since we only care about estimating unceratinty.
+
+	3. Present training plots. Does everything looks good. Very low MSE and MAE. 
+		Loss for BBB is higher (but also a second term). Does KL look right?
+
+	3. I believe they are estimating the uncertainty wrong. They are embedding the aleatoric uncertainty into the epistemic uncertainty
+	   	And their aleatoric uncertainty looks weird, and computes extremely big values.
+	   	We emailed ProbVLM and he tried to explain to us how they recreated the roc-curves, but they didn't have any code.
+	   	We are thinking about rewriting the uncertainty code but then its hard to recreate the plots from 
+		the Paper and know that we are correct.
+
+		Also why are they clipping the values in the get_GGuncer code?
+
+	4. In the mail he recomended using a zero-shot classification setting and using standard calibation metrics to estimate uncertainty.
+		Is this something that is relevant for us. Calibartion is another technique or not?
+
+	5. Downstream task discussion
 
 Monday:
 	Training ProbVLM and BBB (with the additional KL term in the loss).
@@ -112,3 +118,27 @@ Tuesday:
 	seemed to collapse in the center while the ProbVLM looked better after the dimensionality reduction using PCA. So something went wrong with the 
 	BBB training which we are also trying to debug. It may be the prior of mu and sigma or that we did not include the KL divergence term at first. 
 	Retraining the model is ongoing.     
+
+Wednesday:
+	Retrain the models. Change the BNN complexity and structure, ProbVLM correct number of hidden dimensions. Try to debug the uncertainty code.
+	Reach out to the ProbVLM authors for help on how to recreate the ROC-curve.
+
+Thursday:
+	Figured out what is wrong with the uncertainty. The aleatoric get_ggUncer functino is very weird. 
+	Leading to very big values. But wihtout it epistemic uncertainty is very small.
+	ProbVLM authors answered and gave us some tips, but didn't have their own implementation saved for the evaluation.
+	
+Friday:
+	Meeting with the group. BBB architecture was okay except that we need to add the expaction value to the loss the get the noise of the model.
+	Otherwise the model continues to be deterministic. Training looked OK for MSE, MAE and KL term. ProbVLM paper is wrong about the calculation of 
+	uncertainty. Fix downstream task to be able to test the model, because now we are looking a bit blind to the metrics and we actually don't know
+	how it performs. Zero-shot classification, image-captioning should be tried as downstream. 
+
+
+Potential reasons for the uncertainty problems:
+	1. The expectation term
+		altough i already think we do that when we sample the parameters from the network in the for loop in main.py
+	2. Not enough stocasisity in the network
+		Solution: add more bayesian layers
+	3. Check this out: https://github.com/ykwon0407/UQ_BNN/blob/master/retina/utils.py
+
