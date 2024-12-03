@@ -123,10 +123,15 @@ class BayesCap_for_CLIP_ProbVLM(nn.Module):
         self.txt_BayesCap = BayesCap_MLP_ProbVLM(inp_dim=inp_dim, out_dim=out_dim, hid_dim=hid_dim, num_layers=num_layers, p_drop=p_drop)
 
     def forward(self, i_features, t_features):
-        
-        # print('dbg', i_features.shape, t_features.shape)
-        img_mu, img_1alpha, img_beta = self.img_BayesCap(i_features)
-        txt_mu, txt_1alpha, txt_beta = self.txt_BayesCap(t_features)
+        if t_features is not None:
+            txt_mu, txt_1alpha, txt_beta = self.txt_BayesCap(t_features)
+        else:
+            txt_mu, txt_1alpha, txt_beta = None, None, None
+
+        if i_features is not None:
+            img_mu, img_1alpha, img_beta = self.img_BayesCap(i_features)
+        else:
+            img_mu, img_1alpha, img_beta = None, None, None
 
         return (img_mu, img_1alpha, img_beta), (txt_mu, txt_1alpha, txt_beta)
 

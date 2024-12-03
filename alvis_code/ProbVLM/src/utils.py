@@ -161,15 +161,16 @@ def emb_mse(x1, x2):
 
 def get_GGuncer(x_alpha, x_beta, print_u="False"):
     a = 1/(x_alpha + 1e-5) # precision = 1 / variance
-    # a = x_alpha + 1e-5
     a = torch.clip(a, min=1e-4, max=5)
     b = x_beta
     b = torch.clip(x_beta, min=0.1, max=5)
     u = (a**2)*torch.exp(torch.lgamma(3/b))/torch.exp(torch.lgamma(1.0/b))
+    """
     if print_u == "True":
         print("u:", u)
         print("a:", a)
         print("b:", b)
+    """
     return u
     
 def multi_fwpass_ProbVLM(
@@ -213,16 +214,16 @@ def multi_fwpass_ProbVLM(
     i_alpha_m, i_alpha_v = torch.mean(i_alpha, dim=0), torch.var(i_alpha, dim=0)
     i_beta_m, i_beta_v = torch.mean(i_beta, dim=0), torch.var(i_beta, dim=0)
     i_uncer_m, i_uncer_v = torch.mean(i_uncer, dim=0), torch.var(i_uncer, dim=0)
-    # i_v = i_mu_v + i_alpha_v + 1/i_beta_v
-    i_v = (i_uncer_v * i_mu_v)**(1/2) # epistemic ?? original
+    i_v = i_mu_v + 1/i_alpha_v + i_beta_v # original comment had 1/beta
+    #i_v = (i_uncer_v * i_mu_v)**(1/2) # epistemic ?? original
     #i_v = i_mu_v # edward
     ##
     t_mu_m, t_mu_v = torch.mean(t_mu, dim=0), torch.var(t_mu, dim=0)
     t_alpha_m, t_alpha_v = torch.mean(t_alpha, dim=0), torch.var(t_alpha, dim=0)
     t_beta_m, t_beta_v = torch.mean(t_beta, dim=0), torch.var(t_beta, dim=0)
     t_uncer_m, t_uncer_v = torch.mean(t_uncer, dim=0), torch.var(t_uncer, dim=0)
-    # t_v = t_mu_v + t_alpha_v + 1/t_beta_v
-    t_v = (t_uncer_v * t_mu_v)**(1/2) # epistemic ?? original
+    t_v = t_mu_v + 1/t_alpha_v + t_beta_v # original commented had 1/beta
+    #t_v = (t_uncer_v * t_mu_v)**(1/2) # epistemic ?? original
     #t_v = t_mu_v # edward
     
     return (i_mu_m, i_alpha_m, i_beta_m, i_v), (t_mu_m, t_alpha_m, t_beta_m, t_v)
@@ -256,23 +257,19 @@ def get_features_uncer_ProbVLM(
             #recons
             outs = multi_fwpass_ProbVLM(BayesCap_Net, outputs[0], outputs[1])
             # (i_mu_m, i_alpha_m, i_beta_m, i_v), (t_mu_m, t_alpha_m, t_beta_m, t_v)
-            
             for j in range(n_batch):
                 r_dict['i_f'].append(outputs[0][j,:])
                 r_dict['t_f'].append(outputs[1][j,:])
                 r_dict['ir_f'].append(outs[0][0][j,:])
                 r_dict['tr_f'].append(outs[1][0][j,:])
-                if j == 2:
-                    u = get_GGuncer(outs[0][1][j,:], outs[0][2][j,:], print_u="True")
-
                 u = get_GGuncer(outs[0][1][j,:], outs[0][2][j,:])
                 r_dict['i_au'].append(u)
                 r_dict['i_eu'].append(outs[0][3][j,:])
-                r_dict['i_u'].append(u+outs[0][3][j,:])
+                r_dict['i_u'].append(u+outs[0][3][j,:]) # removed aleatoric
                 u = get_GGuncer(outs[1][1][j,:], outs[1][2][j,:])
                 r_dict['t_au'].append(u)
                 r_dict['t_eu'].append(outs[1][3][j,:])
-                r_dict['t_u'].append(u+outs[1][3][j,:])
+                r_dict['t_u'].append(u+outs[1][3][j,:]) # removed aleatoric
     
     return r_dict
 
@@ -285,7 +282,7 @@ def sort_wrt_uncer(r_dict):
     
     orig_t_idx = {}
     for i in range(len(r_dict['t_u'])):
-        orig_t_idx[i] = 1/torch.mean(r_dict['t_u'][i]).item()
+        orig_t_idx[i] = torch.mean(r_dict['t_u'][i]).item()
     sort_t_idx = sorted(orig_t_idx.items(), key=lambda x: x[1], reverse=True)
     
     return sort_v_idx, sort_t_idx
@@ -311,9 +308,13 @@ def create_uncer_bins_eq_samples(sort_idx, n_bins=10):
     ret_bins = {'bin{}'.format(i):[] for i in range(n_bins)}
     n_len = len(sort_idx)
     z = 0
+    bin_counter = 0
+    print(f"Bin {bin_counter}, uncertainty: {sort_idx[0][1]}")
     for i, val in enumerate(sort_idx):
         if i<=z+(n_len//n_bins):
             ret_bins['bin{}'.format(int(z//(n_len/n_bins)))].append(val)
         else:
+            bin_counter +=1
+            print(f"Bin {bin_counter}, uncertainty: {val[1]}")
             z += n_len//n_bins
     return ret_bins

@@ -28,7 +28,7 @@ class GenGaussLoss(nn.Module):
 
 		resi = torch.abs(mean - target)
 		# resi = torch.pow(resi*one_over_alpha1, beta1).clamp(min=self.resi_min, max=self.resi_max)
-		resi = (resi*one_over_alpha1*beta1).clamp(min=self.resi_min, max=self.resi_max)
+		resi = (1 - beta1 + beta1 * (resi*one_over_alpha1)).clamp(min=self.resi_min, max=self.resi_max)
 		## check if resi has nans
 		if torch.sum(resi != resi) > 0:
 			print('resi has nans!!')

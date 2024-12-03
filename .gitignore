@@ -1,6 +1,13 @@
 /alvis_code/ProbVLM/datasets/
-/alvis_code/ProbVLM/src/scripts/output_logs
+/alivs_code/ProbVLM/ckpt/
+/alvis_code/ProbVLM/UQ_venv/
+/alvis_code/ProbVLM/venv_polos/
+/alvis_code/ProbVLM/src/output_polos_slurm/
+/alvis_code/ProbVLM/src/downstream/Polos/
+/alvis_code/ProbVLM/src/downstream/zero_shot_image_classification/outputs/
+/alvis_code/ProbVLM/src/downstream/zero_shot_image_classification/data/
+/alvis_code/ProbVLM/src/scripts/output_logs/
 /alvis_code/ProbVLM/src/slurm*
-/alvis_code/ProbVLM/src/output_eval_slurm
-/alvis_code/ProbVLM/src/output_train_slurm
-/alvis_code/ProbVLM/src/output_edward_slurm
+/alvis_code/ProbVLM/src/output_eval_slurm/
+/alvis_code/ProbVLM/src/output_train_slurm/
+/alvis_code/ProbVLM/src/output_edward_slurm/

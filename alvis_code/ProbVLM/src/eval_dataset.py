@@ -9,18 +9,21 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
 import utils
+import time 
 
 import clip
 import ds 
 from ds import prepare_coco_dataloaders
 from tqdm import tqdm
 from losses import *
-from utils import *
+#from utils import *
+from utils_implementation import * 
 
 from ds.vocab import Vocabulary
 
 from networks import *
 from networks_mc_do import *
+from networks_BBB_EncBL import *
 
 def eval_ProbVLM(
     CLIP_Net,
@@ -98,10 +101,17 @@ def load_and_evaluate(
         )
     elif model_type == "ProbVLM":
         Net = BayesCap_for_CLIP_ProbVLM(
-                inp_dim = 512,
-                out_dim = 512,
-                hid_dim = 256,
-                num_layers=3
+            inp_dim = 512,
+            out_dim = 512,
+            hid_dim = 256,
+            num_layers=3
+        )
+    elif model_type == "BBB_EncBL":
+        Net = BayesCap_for_CLIP_BBB_Enc(
+            inp_dim = 512,
+            out_dim = 512,
+            hid_dim = 256,
+            num_layers = 3
         )
     else:
         print(f"Error: Unknown model type '{model}'. Supported models are 'ProbVLM' and 'BBB'.", file=sys.stderr)
@@ -133,7 +143,7 @@ def uncert_est(
     data_dir="../datasets/coco",
     model_type="ProbVLM",
     batch_size=64,
-    n_fw=10,
+    n_fw=15,
     device="cuda"
 ):
     # Load data loaders
@@ -163,6 +173,13 @@ def uncert_est(
             hid_dim=256,
             num_layers=3
         )
+    elif model_type == "BBB_EncBL":
+        Net = BayesCap_for_CLIP_BBB_Enc(
+            inp_dim = 512,
+            out_dim = 512,
+            hid_dim = 256,
+            num_layers = 3
+        )
     else:
         print(f"Error: Unknown model type '{model}'. Supported models are 'ProbVLM' and 'BBB'.", file=sys.stderr)
         sys.exit(1)
@@ -175,35 +192,46 @@ def uncert_est(
     CLIP_Net.eval()
     Net.to(device)
     Net.eval()
+
+    print("Calculating uncertainties...")
+    uncert_dict = get_uncertainties(CLIP_Net, Net, valid_loader, n_fw=n_fw, device="cuda") 
+    recall_values, bins = compute_recall_for_uncertainty_bins(uncert_dict, recall_k=1, n_bins=5)
+
+    # Plot the recall vs uncertainty
+    plot_recall_vs_uncertainty(recall_values, n_bins=5)
     
-    r_dict = get_features_uncer_ProbVLM(CLIP_Net, Net, valid_loader)
+    """
+    summary = summarize_uncertainties(uncert_dict)
 
-    i_eu_list = [elem for sublist in r_dict['i_eu'] for elem in sublist]
-    i_au_list = [elem for sublist in r_dict['i_au'] for elem in sublist]
-    t_eu_list = [elem for sublist in r_dict['t_eu'] for elem in sublist]
-    t_au_list = [elem for sublist in r_dict['t_au'] for elem in sublist]
-    avg_i_eu = sum(i_eu_list) / len(i_eu_list)
-    avg_i_au = sum(i_au_list) / len(i_au_list)
-    avg_t_eu = sum(t_eu_list) / len(t_eu_list)
-    avg_t_au = sum(t_au_list) / len(t_au_list)
+    for key, stats in summary.items():
+        print(f"{key}:")
+        for stat, value in stats.items():
+            print(f"  {stat}: {value:.4f}")
+    """
 
-    print("\n*** Results ***")
-    print(f"Avg. Image Epistemic Uncertainty: {avg_i_eu}, Avg. Text Epistemic Uncertainty: {avg_t_eu}")
-    print(f"Avg. Image Aleatoric Uncertainty: {avg_i_au}, Avg. Text Aleatoric Uncertainty: {avg_t_au}")
-
-    return (avg_i_eu, avg_t_eu)
+    return (0, 0)
 
 
 def main():
-    model = "../ckpt/BBB_Net_best_first_KL.pth"
+    #model = "../ckpt/BBB_EncBL_best_first.pth"
+    model = "../ckpt/BBB_EncBL_best_3.pth"
     #model = "../ckpt/ProbVLM_Net_best.pth"
-    #mae_coco_probvlm = load_and_evaluate(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
-    #mae_flickr_probvlm = load_and_evaluate(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
-    uncert_coco_BBB = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB")
-    #uncert_flicker_BBB = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB")
+    #model = "../ckpt/ProbVLM_Net_best_3.pth"
+    
+    start = time.time()
+    print("Evaluating with load_and_evaluate...")
+    #mae_coco_probvlm = load_and_evaluate(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
+    mae_flickr_probvlm = load_and_evaluate(ckpt_path=model, batch_size=1, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB_EncBL")
+    #mae_flickr_BBB_Enc = load_and_evaluate(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB_EncBL")
+    print(f"Completed in {time.time() - start:.2f} seconds.")
+    
+    start = time.time()
+    print("Estimating uncertainty with uncert_est...")
+    #uncert_coco_BBB = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="BBB_EncBL", n_fw=50)
+    #uncert_flicker_BBB = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB_EncBL")
     #uncert_coco_probvlm = uncert_est(ckpt_path=model, dataset="coco", data_dir="../datasets/coco", model_type="ProbVLM")
-    #uncert_flickr_probvlm = uncert_est(ckpt_path=model, dataset="flickr", data_dir="../datasets/flickr", model_type="ProbVLM")
-
+    uncert_flickr_probvlm = uncert_est(ckpt_path=model, batch_size=1, dataset="flickr", data_dir="../datasets/flickr", model_type="BBB_EncBL")
+    print(f"Completed in {time.time() - start:.2f} seconds.")
 if __name__ == "__main__":
     main()
 

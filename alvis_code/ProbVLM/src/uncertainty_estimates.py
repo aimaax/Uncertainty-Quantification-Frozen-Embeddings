@@ -21,7 +21,26 @@ from ds.vocab import Vocabulary
 
 from networks import *
 from networks_mc_do import *
+from networks_BBB_EncBL import *
 
+def get_recall_at_1(pred_ranks, ground_truth_indices):
+    """
+    Args:
+        pred_ranks (np.ndarray, shape=[#queries, 1]):
+            Predicted top-1 gallery index for each query.
+        ground_truth_indices (list[int]):
+            Ground-truth gallery indices corresponding to each query.
+    Returns:
+        recall_1 (float): Recall@1 score.
+    """
+    # Flatten pred_ranks since it's shape [#queries, 1]
+    pred_ranks = pred_ranks.flatten()
+    
+    # Calculate recall as the proportion of correct predictions
+    correct_predictions = sum(pred == gt for pred, gt in zip(pred_ranks, ground_truth_indices))
+    recall_1 = correct_predictions / len(ground_truth_indices)
+
+    return recall_1
 
 
 def eval_ProbVLM(
@@ -122,7 +141,8 @@ def eval_ProbVLM_uncert(
     device='cuda',
     n_fw=15,  # Number of forward passes for uncertainty estimation
     bins_type='eq_samples',  # 'eq_spacing' or 'eq_samples'
-    n_bins=5,  # Number of uncertainty bins
+    n_bins=5,  # Number of uncertainty bins,
+    retrieval="i2t"
 ):
     CLIP_Net.to(device)
     CLIP_Net.eval()
@@ -131,15 +151,22 @@ def eval_ProbVLM_uncert(
 
     # Get features and uncertainties
     r_dict = get_features_uncer_ProbVLM(CLIP_Net, BayesCap_Net, eval_loader)
-
+    
     # Sort samples by uncertainty
     sort_v_idx, sort_t_idx = sort_wrt_uncer(r_dict)
-
+    if retrieval == "i2t":
+        sort_idx = sort_v_idx
+        query_feature = "ir_f"
+        gallery_feature = "tr_f"
+    else: # "t2i"
+        sort_idx = sort_t_idx
+        query_feature = "tr_f"
+        gallery_feature = "ir_f"
     # Bin the sorted samples
     if bins_type == 'eq_spacing':
-        bins = create_uncer_bins_eq_spacing(sort_v_idx, n_bins=n_bins)
+        bins = create_uncer_bins_eq_spacing(sort_idx, n_bins=n_bins)
     elif bins_type == 'eq_samples':
-        bins = create_uncer_bins_eq_samples(sort_v_idx, n_bins=n_bins)
+        bins = create_uncer_bins_eq_samples(sort_idx, n_bins=n_bins)
     else:
         raise ValueError("Invalid `bins_type`. Choose 'eq_spacing' or 'eq_samples'.")
 
@@ -147,35 +174,34 @@ def eval_ProbVLM_uncert(
     bin_recalls = []
     counter = 0
 
-    # For saving features of the samples to produce visualized PCA from 512 dim to 2
-    PCA_query_features = np.empty((0, 512))
-    PCA_gallery_features = np.empty((0, 512))
-
     for bin_key, samples in bins.items():
         if not samples:
             bin_recalls.append(0)  # If bin is empty, append 0
             continue
         
         indices = [sample[0] for sample in samples]  # Extract indices from sorted list
-        bin_query_features = torch.stack([r_dict['ir_f'][i] for i in indices])
-        bin_gallery_features = torch.stack(r_dict['tr_f'])  # All gallery features
-        
-        # append PCA lists
-        #PCA_query_features = np.concatenate((PCA_query_features, bin_query_features.cpu().numpy()), axis=0)
-        #np.save('/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/PCA_query_features.npy', PCA_query_features)
-        pred_ranks = get_pred_ranks(bin_query_features, bin_gallery_features, recall_ks=(1,))
-        
-        if counter == 0:
-            #print(f"Query: {bin_query_features}")
-            #print(f"Gallery: {bin_gallery_features}")
-            print(f"Pred Ranks: {pred_ranks}")
-            #print(f"Indices: {indices}")
-        counter += 1
-        recall_scores = get_recall_COCOFLICKR(pred_ranks, recall_ks=(1,), q_idx=indices)
-        bin_recalls.append(recall_scores[0])
+        bin_query_features = torch.stack([r_dict[query_feature][i] for i in indices])
+        bin_gallery_features = torch.stack(r_dict[gallery_feature])  # All gallery features
+        q_classes = [r_dict["classes"][i] for i in indices]
+        g_classes = r_dict["classes"]
+        assert not torch.isnan(bin_query_features).any(), "NaNs in query features!"
+        assert not torch.isnan(bin_gallery_features).any(), "NaNs in gallery features!"
+        assert bin_query_features.shape[1] == bin_gallery_features.shape[1], "Feature dimension mismatch!"
 
-    #PCA_gallery_features = np.concatenate((PCA_gallery_features, bin_gallery_features.cpu().numpy()), axis=0)
-    #np.save("/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/PCA_gallery_features.npy", PCA_gallery_features)
+        pred_ranks = get_pred_ranks(bin_query_features, bin_gallery_features, recall_ks=(1,))
+        assert pred_ranks.flatten().shape[0] == len(indices), "Mismatch in sizes!"
+        if counter == 0:
+            print("uncertainty for t")
+            print(f"Query uncertainty u: {r_dict['t_u'][0]}")
+            print(f"Query uncertainty au: {r_dict['t_au'][0]}")
+            print(f"Query uncertainty eu: {r_dict['t_eu'][0]}")
+            #print("indicies", len(indices))
+        counter += 1
+        recall_scores = new_recall(pred_ranks_all=pred_ranks, recall_ks=(1,), q_classes_all=q_classes, g_classes_all=g_classes)
+        #recall_scores = get_recall(pred_ranks, recall_ks=(1,))
+        #recall_1 = get_recall_at_1(pred_ranks, indices)
+        bin_recalls.append(recall_scores[0])
+        #bin_recalls.append(recall_1)
     return bin_recalls, bins
 
 
@@ -187,7 +213,8 @@ def load_and_evaluate_uncert(
     device='cuda',
     n_bins=5,
     bins_type='eq_samples',
-    model_type="ProbVLM"
+    model_type="ProbVLM",
+    retrieval = "i2t"
 ):
     # Load data loaders
     dataloader_config = mch({
@@ -204,7 +231,7 @@ def load_and_evaluate_uncert(
 
     # Define BayesCap network
     if model_type == "BBB":
-        ProbVLM_Net = BayesCap_for_CLIP(
+        ProbVLM_Net = BayesCap_for_CLIP_BBB_Enc(
             inp_dim=512,
             out_dim=512,
             hid_dim=256,
@@ -229,7 +256,8 @@ def load_and_evaluate_uncert(
         coco_valid_loader,
         device=device,
         n_bins=n_bins,
-        bins_type=bins_type
+        bins_type=bins_type,
+        retrieval=retrieval
     )
 
     # Plot recall@1 vs uncertainty bins
@@ -248,10 +276,15 @@ def load_and_evaluate_uncert(
 
 def main():
     #model = "../ckpt/BBB_woKL_Net_best.pth"
-    model = "../ckpt/ProbVLM_Net_best.pth"
+    model = "../ckpt/ProbVLM_Net_best_3.pth"
+    #model = "../ckpt/BBB_EncBL_best_3.pth"
     #eval_results = load_and_evaluate()
     #print(eval_results)
-    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_samples", model_type="ProbVLM")
+    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_samples", model_type="ProbVLM", retrieval="t2i")
+    print("Text to image, equal samples ProbVLM_Net_best_3. Estimate of epistemic: sum of all no division, no aleatoric. Using new_recall().")
+    print("Recall@1 for each bin:", bin_recalls)
+    bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_samples", model_type="ProbVLM", retrieval="i2t")
+    print("Image to text, equal samples ProbVLM_Net_best_3. Estimate of epistemic: sum of all no division, no aleatoric. Using new_recall().")
     print("Recall@1 for each bin:", bin_recalls)
 
     #iod_ood = compare_iod_vs_ood(ckpt_path=model)

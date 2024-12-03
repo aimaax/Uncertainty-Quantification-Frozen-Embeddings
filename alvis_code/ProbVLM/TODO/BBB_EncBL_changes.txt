@@ -1,0 +1,13 @@
+Changes of BBB_EncBL for optimization:
+
+    Try: 
+	1. Prior_mu to 0 or sample from Gaussian mean=0, std=0.1 as init weights.
+	2. Add ReduceLROnPlateu instead of cosine scheduler for more dynamic lr changes
+	3. Add dynamic kl_weight term for kl_weight*kl_loss in Early training) 1-10% of other loss term (because of KL regularization not too large in the beginning), Mid to Late) 10-30% of loss  
+
+    Current model names script: 
+	*_1.pth: T1 = 1, T2 = 0.5, 
+	*_2.pth: T1 = 1, T2 = 0.1. prior_sigma = 0, init_lr = 1e-4 with ReduceLROnPlateu of patience 3, factor 0.5. Dynamic kl_weight added.
+	*_3.pth: T1 = 1, T2 = 1e-4. - || -
+	*_4.pth: T1 = 0, T2 = 1. - || - REMOVED, VERY BAD! Only 10 epochs. 
+	*_4.pth: 

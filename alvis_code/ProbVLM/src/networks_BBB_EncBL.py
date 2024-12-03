@@ -8,8 +8,8 @@ import torch.nn as nn
 import torchbnn as bnn
 
 import clip
-from tqdm import tqdm
 from utils import *
+from tqdm import tqdm
 
 
 class BayesCap_MLP_BBB_Enc(nn.Module): # Edited
@@ -98,8 +98,8 @@ class BayesCLIP_BBB_Enc(nn.Module):
         for param in self.clip_model.parameters():
             param.requires_grad = False
 
-        self.img_BayesCap = BayesCap_MLP_BBB_Enc(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.5, prior_sigma=0.1).to(device)
-        self.txt_BayesCap = BayesCap_MLP_BBB_Enc(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.5, prior_sigma=0.1).to(device)
+        self.img_BayesCap = BayesCap_MLP_BBB_Enc(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.0, prior_sigma=0.1).to(device)
+        self.txt_BayesCap = BayesCap_MLP_BBB_Enc(inp_dim=512, out_dim=512, hid_dim=512, num_layers=3, prior_mu=0.0, prior_sigma=0.1).to(device)
 
     def forward(self, i_inputs, t_inputs):
         i_features, t_features = self.clip_model(i_inputs, t_inputs)
@@ -127,8 +127,15 @@ class BayesCap_for_CLIP_BBB_Enc(nn.Module): # Edited
     def forward(self, i_features, t_features):
         
         # print('dbg', i_features.shape, t_features.shape)
-        img_mu, img_1alpha, img_beta = self.img_BayesCap(i_features)
-        txt_mu, txt_1alpha, txt_beta = self.txt_BayesCap(t_features)
+        if t_features is not None:
+            txt_mu, txt_1alpha, txt_beta = self.txt_BayesCap(t_features)
+        else:
+            txt_mu, txt_1alpha, txt_beta = None, None, None
+
+        if i_features is not None:
+            img_mu, img_1alpha, img_beta = self.img_BayesCap(i_features)
+        else:
+            img_mu, img_1alpha, img_beta = None, None, None
 
         return (img_mu, img_1alpha, img_beta), (txt_mu, txt_1alpha, txt_beta)
 
