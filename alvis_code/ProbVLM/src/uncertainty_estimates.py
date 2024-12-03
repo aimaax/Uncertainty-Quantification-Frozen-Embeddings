@@ -281,10 +281,10 @@ def main():
     #eval_results = load_and_evaluate()
     #print(eval_results)
     bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_samples", model_type="ProbVLM", retrieval="t2i")
-    print("Text to image, equal samples ProbVLM_Net_best_3. Estimate of epistemic: sum of all no division, no aleatoric. Using new_recall().")
+    print("Text to image, equal samples ProbVLM_Net_best_3. Estimate of epistemic: sum of all no division, include aleatoric. Using new_recall().")
     print("Recall@1 for each bin:", bin_recalls)
     bin_recalls, bins = load_and_evaluate_uncert(ckpt_path=model, bins_type="eq_samples", model_type="ProbVLM", retrieval="i2t")
-    print("Image to text, equal samples ProbVLM_Net_best_3. Estimate of epistemic: sum of all no division, no aleatoric. Using new_recall().")
+    print("Image to text, equal samples ProbVLM_Net_best_3. Estimate of epistemic: sum of all no division, include aleatoric. Using new_recall().")
     print("Recall@1 for each bin:", bin_recalls)
 
     #iod_ood = compare_iod_vs_ood(ckpt_path=model)
