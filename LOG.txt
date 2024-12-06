@@ -142,3 +142,30 @@ Potential reasons for the uncertainty problems:
 		Solution: add more bayesian layers
 	3. Check this out: https://github.com/ykwon0407/UQ_BNN/blob/master/retina/utils.py
 
+Week 49:
+
+Monday:
+	First downstream task implemented for zero-shot classification using ImageNet. Lecture. Debug ROC as usual. 
+
+Tuesday: 
+	Implemented gradient for alpha and beta. Cifar100 for zero-shot classification. Tried to install polos on alvis but polos are using a too old
+	python which doesn't make it possible on alvis. We now know which recall to use and that the ProbVLM paper doesn't tell the same in the paper
+	as they do in the code so we have to make up our own conclusions in the end which makes it not totally comparable. Also having contact with 
+	the ProbVLM authors. 
+
+Wednesday: 	
+	Been getting out the recall - uncertainty plot but it is reversed to what we want it to be. Retraining more models and changing 
+	the weight and reduction of the KL term for BBB. Also experimenting what the T1 and T2 affect the models. Preparing presentation 
+	for Monday. 
+
+Thursday: 
+	Trying to figure out what is wrong with our alpha term in the GGD, it becomes very small and we have tried to retrain the models with 
+	optimization to make alpha larger. Something is wrong and the main authors for ProbVLM "don't have access" to last checkpoint and the code
+	is as mentioned, not reproducable, in which we are thinking that the code and result of the main paper is kind of cheating. So we are trying
+	to reformulate the loss function to a standard Gaussian with loss of intra-modal and cross-modal term + KL divergence for Bayesian Linear Layers
+	, this to get rid of the instability issues from the loss derived from the GGD pdf. This was discussed with Prashant and Liu in todays meeting. 
+	
+Friday:
+	Retraining the ProbVLM from the main paper to prove that the model does not work as intended. Also mathematically derived the new loss function
+	and implementing it to the code to soon retrain the model with our own approach. Hopefully it works better :) 
+
