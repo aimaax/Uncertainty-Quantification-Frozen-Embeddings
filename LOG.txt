@@ -169,3 +169,35 @@ Friday:
 	Retraining the ProbVLM from the main paper to prove that the model does not work as intended. Also mathematically derived the new loss function
 	and implementing it to the code to soon retrain the model with our own approach. Hopefully it works better :) 
 
+Week 50:
+
+Question for meeting:	
+	1. Modeling aleatoric in loss function? 
+	2. Predict only what CLIP predicts, how to evaluate epistemic uncertainty without any variance of mu?
+
+Monday: 
+	Still trying to debug what is wrong with the aleatoric and epistemic uncertainty and trying to formulate a downstream task that can work 
+	to apply the quality of uncertainty with. 
+
+Tuesday: 
+	Models seems to behave weird during training and evaluation for the zero-shot classification. Should we reformulate the problem formulation on where
+	the aleatoric and epistemic uncertainty comes from? Because it feels like variance goes to zero and mu becomes very low and if we add KL regularization
+	then we only force the variance to be what we set to the regularization variance. 
+
+Wednesday:
+	Meeting with Prashant and Li to discuss the new problem formalation and we think that we have grasped a new idea. We are now focusing that the aleatoric
+	uncertainty only comes from the text, since text is more a generalization of the real world image. The epistemic comes mainly from the image as the image
+	can be rotated, different lightning etc. which adds an uncertainty to the model as it hasn't been trainined on that angle, we can say that the epistemic 
+	uncertainty comes from the lack of knowledge that the model has been trained on. So OOD dataset would have a higher epistemic uncertainty than IOD and the 
+	same argument can be said with rotations etc.. 
+
+Thursday: 
+	Since the application of a downstream task has been very difficult to apply, then we have thought about the simplification on how to evaluate our model more
+	and we have come up with three ideas that we are going to use for the result, zero-shot image classification, aleatoric uncertainty through adding more
+	information to text (the more specific text, the lower the aleatoric uncertainty), and check if accuracy of adaptor is close to clip (which checks that 
+	the ijntra-modal term is close to clip, i.e. we don't unlearn the model). 
+
+Friday: 
+	Waiting for our models that we have been training back and forth during the week with optimization of batchnorm, kl_lambda, resi_lambda, etc., and checks
+	if these models have been good or not and then retrained if the result looks weird. Also started to create some pcitures for the report/presentation/poster. 
+	Continuing to write on the report, especially the method part since we now have our full approah that we believe in. 
