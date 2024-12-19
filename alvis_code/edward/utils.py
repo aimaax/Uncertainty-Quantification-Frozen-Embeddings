@@ -1,6 +1,5 @@
 import torch
 
-
 # customise the collate function for the dataloader
 def collate_fn(batch):
     raw_images, caption_lists = zip(*batch)

@@ -4,7 +4,7 @@ from tqdm.auto import tqdm
 import numpy as np
 import torch
 from clip import *
-from model import AsymProbAdaptor 
+from models import *
 import torchvision
 from torchvision.datasets import CIFAR100
 from torchvision import transforms
@@ -20,8 +20,15 @@ from torch.utils.data import DataLoader
 def load_image(image_path):
     return Image.open(image_path)
 
-def load_adaptor(ckpt_path, device="cuda"):
-    adaptor = AsymProbAdaptor().to(device).half()
+def load_adaptor(ckpt_path, model_type="DO", device="cuda"):
+    if model_type == "DO":
+        adaptor = AsymProbAdaptor().to(device).half()
+    elif model_type == "BNN":
+        adaptor = AsymProbAdaptorBNN().to(device).float()
+    else:
+        print(f"Error: Unknown model type '{model_type}'. Supported models are 'DO' and 'BNN'.", file=sys.stderr)
+        sys.exit(1)
+
     adaptor.load_state_dict(torch.load(ckpt_path, map_location=device))
     print(f"Loaded checkpoint from {ckpt_path}")
 
@@ -92,8 +99,11 @@ def calc_accuracy(true_preds):
 def multi_fwpass(
     BayesCap_Net,
     xfI, n_fw=15,
+    model_type = "DO",
     return_mu_lst=False
 ):
+    if model_type == "BNN":
+        xfI = xfI.float()
     img_mu_lst =  []
 
     for i in range(n_fw):
@@ -178,14 +188,22 @@ def reject_accuracy(data_loader, label_emb, clip_labels, global_labels, CLIP_Net
         log_var = np.mean(np.exp(log_var))
         aleatoric_uncertainties.append(log_var) 
 
-    epistemic_uncertainties = feature_uncer(Net, img_emb_list, device=device, n_fw=30)
+    with torch.no_grad():
+        Net.eval()
+        for layer in Net.children():
+            for l in layer.modules():
+                if isinstance(l, nn.Dropout):
+                    l.p = 0.3
+                    l.train()
+
+    epistemic_uncertainties = feature_uncer(Net, img_emb_list, device=device, n_fw=50)
 
     total_uncertainties = []
     for epistemic, aleatoric in zip(epistemic_uncertainties, aleatoric_uncertainties):
         #total_uncertainty = epistemic + aleatoric
-        #total_uncertainty = epistemic
+        total_uncertainty = epistemic
         #total_uncertainty = aleatoric
-        total_uncertainty = (aleatoric * epistemic) ** (1/2)
+        #total_uncertainty = (aleatoric * epistemic) ** (1/2)
         total_uncertainties.append(total_uncertainty)
 
     rejection_percentages = np.arange(0, 96, 5)  
@@ -224,13 +242,13 @@ def reject_accuracy(data_loader, label_emb, clip_labels, global_labels, CLIP_Net
 
 
 def experiments(Net, CLIP_Net, processor, device='cuda'):
-    """
+    """    
     manual_labels = [
         "a photo",
-        "a photo of a cat",
-        "a photo of a black cat on a table",
-        "a photo of a black cat on a table with a glass of pepsi beside it",
-        "a photo of a black cat on a table with a glass of pepsi beside it, and a man in the backgroud",
+        "a photo of a man",
+        "a photo of a man man",
+        "a photo of a man of a man",
+        "a photo of a man of a man.",
     ]
     """
     manual_labels = [
@@ -264,26 +282,29 @@ def experiments(Net, CLIP_Net, processor, device='cuda'):
 
     return aleatoric_uncertainties
 
-def calculate_epistemic_uncertainty_for_images(image1_path, image2_path, Net, CLIP_Net, processor, device='cuda', n_fw=15):
+def calculate_epistemic_uncertainty_for_images(image1_path, image2_path, Net, CLIP_Net, processor, device='cuda', n_fw=15, model_type="DO"):
     image1 = Image.open(image1_path).convert("RGB")
     image2 = Image.open(image2_path).convert("RGB")
     
     image1_processed = processor(image1).unsqueeze(0).to(device)  
     image2_processed = processor(image2).unsqueeze(0).to(device) 
     
-    with torch.no_grad():
+    if model_type == "DO":
+        with torch.no_grad():
+            Net.eval()
+            for layer in Net.children():
+                for l in layer.modules():
+                    if isinstance(l, nn.Dropout):
+                        l.p = 0.3
+                        l.train()
+    else:
         Net.eval()
-        for layer in Net.children():
-            for l in layer.modules():
-                if isinstance(l, nn.Dropout):
-                    l.p = 0.7
-                    l.train()
 
-        img_emb1 = CLIP_Net.encode_image(image1_processed)  
-        img_emb2 = CLIP_Net.encode_image(image2_processed)  
+    img_emb1 = CLIP_Net.encode_image(image1_processed)  
+    img_emb2 = CLIP_Net.encode_image(image2_processed)  
     
-    uncertainties_image1, mu_lst1 = multi_fwpass(Net, img_emb1, return_mu_lst=True, n_fw=5000)  
-    uncertainties_image2, mu_lst2 = multi_fwpass(Net, img_emb2, return_mu_lst=True, n_fw=5000)  
+    uncertainties_image1, mu_lst1 = multi_fwpass(Net, img_emb1, return_mu_lst=True, n_fw=n_fw, model_type=model_type)  
+    uncertainties_image2, mu_lst2 = multi_fwpass(Net, img_emb2, return_mu_lst=True, n_fw=n_fw, model_type=model_type)  
 
     mu_lst1 = torch.stack(mu_lst1).squeeze(dim=1).squeeze(dim=1).cpu().detach().numpy()
     mu_lst2 = torch.stack(mu_lst2).squeeze(dim=1).squeeze(dim=1).cpu().detach().numpy()
@@ -318,25 +339,28 @@ def calculate_epistemic_uncertainty_for_images(image1_path, image2_path, Net, CL
     print("Saved figure to 'epistemic_uncertainty_distributions.png'")
 
 def main():
+    model_type = "DO"
     model, preprocess = clip.load("ViT-B/32", device='cuda')
-    ckpt_path = "best_model_1.pth"
-    Net = load_adaptor(ckpt_path)
+    if model_type == "BNN":
+        model = model.float()
 
-    #experiments(Net, CLIP_Net, processor)
-    image1 = 'FLICKR_EXAMPLE.jpg'
-    image2 = 'interstellar.jpg'
+    ckpt_path = "best_model_DO_COCO.pth"
+    Net = load_adaptor(ckpt_path, model_type=model_type)
+    
+    image1 = 'images/COCO_EXAMPLE.jpg'
+    image2 = 'images/interstellar.jpg'
 
-    calculate_epistemic_uncertainty_for_images(image1, image2, Net, model, preprocess, device="cuda", n_fw=15)
-    #experiments(Net, model, preprocess)
+    calculate_epistemic_uncertainty_for_images(image1, image2, Net, model, preprocess, device="cuda", n_fw=1000, model_type=model_type)
+    experiments(Net, model, preprocess)
 
-    #train_loader, train_dataset = load_cifar100_loader(batch_size=32, image_size=224, train=True)
-    #test_loader, test_dataset = load_cifar100_loader(batch_size=32, image_size=224, train=False)
-    #labels, clip_labels, label_emb = prepare_cifar100_labels(test_dataset, model)
+    train_loader, train_dataset = load_cifar100_loader(batch_size=32, image_size=224, train=True)
+    test_loader, test_dataset = load_cifar100_loader(batch_size=32, image_size=224, train=False)
+    labels, clip_labels, label_emb = prepare_cifar100_labels(test_dataset, model)
 
-    #accuracy = zero_shot_classifier_cifar_100(test_loader, label_emb, labels, model, Net=Net)
-    #print(f"Accuracy: {accuracy}")
+    accuracy = zero_shot_classifier_cifar_100(test_loader, label_emb, labels, model, Net=Net)
+    print(f"Accuracy: {accuracy}")
 
-    #rejection_accuracies = reject_accuracy(test_loader, label_emb, clip_labels, labels, model, Net=Net)
+    rejection_accuracies = reject_accuracy(test_loader, label_emb, clip_labels, labels, model, Net=Net)
 
 if __name__ == "__main__":
     main()

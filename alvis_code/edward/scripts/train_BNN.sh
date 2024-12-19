@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=naiss2024-5-95
-#SBATCH -N 1 --gpus-per-node=A40:4
+#SBATCH -N 1 --gpus-per-node=A40:1
 #SBATCH --time=1-00:00:00
 
 module purge
@@ -16,7 +16,7 @@ module load Fire/2017.1
 module load NLTK/3.8.1
 module load ftfy 
 
-python3 train.py
+python3 train_BNN.py
 
 mv /mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/edward/slurm-$SLURM_JOB_ID* /mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/edward/output_train
 
