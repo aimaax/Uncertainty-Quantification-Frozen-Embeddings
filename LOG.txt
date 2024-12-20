@@ -201,3 +201,29 @@ Friday:
 	Waiting for our models that we have been training back and forth during the week with optimization of batchnorm, kl_lambda, resi_lambda, etc., and checks
 	if these models have been good or not and then retrained if the result looks weird. Also started to create some pcitures for the report/presentation/poster. 
 	Continuing to write on the report, especially the method part since we now have our full approah that we believe in. 
+
+Week 51:
+
+Monday:
+	Finally obtained good results for the dropout model. Doing various evaluations. Booked meeting with Prashant and Li for tomorow. Trying to get bayesian working.
+
+Tuesday:
+	Showing Prashant and Li the results, and they looked good. However, some problems for the BBB model. Li helped us understand how it should work and provided us
+	with a code template that we will try to incorporate. We discussed epistemic uncertainty vs aleatoric uncertainty and how we should motivate the assumptions
+	and modelling approaches we have done. 
+
+Wednesday:
+	Implementing image retrieval in order to evaluate the quality of the aleatoric uncertainty estimates. Experimenting with the BBB approach, testing Li's version. Still some 
+	problems, and it takes very long to train. Writing the report continuously. 
+
+	Making nice images for the report, presentation and poster since alot of the images are copyright restricted.
+
+Thursday:
+	Finally seing some good results for the BBB algorithm. First we only had one bayesian layer which lead to very little variance in the image mu predictions from the 
+	multiple forward passes. However now we have tested with 2 and 3 layers and it already is looking better. We also tried adding the epsilon to the cross modal term
+	but we get some weird behavior in the epistemic part of the model (the MAE and MSE increases alot). Writing alot of on the report.
+
+	Making nice images for the report, presentation and poster since alot of the images are copyright restricted.
+
+Friday:
+	Producing results for the report and writing the whole day. The final BBB model has still not completed training so some results are not what they will be in the final version. 
