@@ -1,0 +1,75 @@
+This job can be monitored from: https://job.c3se.chalmers.se/alvis/3323461
+Lmod has detected the following error: The following module(s) are unknown:
+"ftfy"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "ftfy"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Loaded checkpoint from ../../../../edward/best_model_100_epochs_flickr.pth
+/mimer/NOBACKUP/groups/ulio_inverse/UQ/Uncertainty-Quantification-Frozen-Embeddings/alvis_code/ProbVLM/src/ds/vocabs/coco_vocab.pkl
+creating index...
+index created!
+Loading COCO Caption: n_images 113287 n_captions 566435...
+loading annotations into memory...
+Done (t=0.25s)
+creating index...
+index created!
+Loading COCO Caption: n_images 1000 n_captions 5000...
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+Loading COCO Caption: n_images 5000 n_captions 25000...
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:02<03:04,  2.37s/it]  3%|▎         | 2/79 [00:02<01:23,  1.09s/it]  5%|▌         | 4/79 [00:02<00:33,  2.21it/s]  8%|▊         | 6/79 [00:02<00:19,  3.69it/s] 10%|█         | 8/79 [00:02<00:13,  5.37it/s] 13%|█▎        | 10/79 [00:03<00:09,  7.12it/s] 15%|█▌        | 12/79 [00:03<00:07,  8.63it/s] 18%|█▊        | 14/79 [00:03<00:06,  9.93it/s] 20%|██        | 16/79 [00:03<00:05, 11.31it/s] 23%|██▎       | 18/79 [00:03<00:04, 12.56it/s] 25%|██▌       | 20/79 [00:03<00:04, 13.64it/s] 28%|██▊       | 22/79 [00:03<00:03, 14.44it/s] 32%|███▏      | 25/79 [00:03<00:03, 17.13it/s] 35%|███▌      | 28/79 [00:04<00:02, 19.05it/s] 39%|███▉      | 31/79 [00:04<00:02, 20.37it/s] 43%|████▎     | 34/79 [00:04<00:02, 21.36it/s] 47%|████▋     | 37/79 [00:04<00:01, 21.98it/s] 51%|█████     | 40/79 [00:04<00:01, 22.51it/s] 54%|█████▍    | 43/79 [00:04<00:01, 22.87it/s] 58%|█████▊    | 46/79 [00:04<00:01, 23.13it/s] 62%|██████▏   | 49/79 [00:04<00:01, 23.26it/s] 66%|██████▌   | 52/79 [00:05<00:01, 23.41it/s] 70%|██████▉   | 55/79 [00:05<00:01, 23.51it/s] 73%|███████▎  | 58/79 [00:05<00:00, 23.59it/s] 77%|███████▋  | 61/79 [00:05<00:00, 23.76it/s] 81%|████████  | 64/79 [00:05<00:00, 23.86it/s] 85%|████████▍ | 67/79 [00:05<00:00, 23.94it/s] 89%|████████▊ | 70/79 [00:05<00:00, 23.98it/s] 92%|█████████▏| 73/79 [00:05<00:00, 24.02it/s] 96%|█████████▌| 76/79 [00:06<00:00, 24.04it/s]100%|██████████| 79/79 [00:06<00:00, 25.08it/s]100%|██████████| 79/79 [00:06<00:00, 12.56it/s]
+Rejection 0 %: 	 Accuracy: 0.4542
+Rejection 5 %: 	 Accuracy: 0.4646315789473684
+Rejection 10 %: 	 Accuracy: 0.47355555555555556
+Rejection 15 %: 	 Accuracy: 0.48094117647058826
+Rejection 20 %: 	 Accuracy: 0.48875
+Rejection 25 %: 	 Accuracy: 0.49706666666666666
+Rejection 30 %: 	 Accuracy: 0.508
+Rejection 35 %: 	 Accuracy: 0.5187692307692308
+Rejection 40 %: 	 Accuracy: 0.5256666666666666
+Rejection 45 %: 	 Accuracy: 0.5334545454545454
+Rejection 50 %: 	 Accuracy: 0.5424
+Rejection 55 %: 	 Accuracy: 0.5471111111111111
+Rejection 60 %: 	 Accuracy: 0.5535
+Rejection 65 %: 	 Accuracy: 0.5594285714285714
+Rejection 70 %: 	 Accuracy: 0.5706666666666667
+Rejection 75 %: 	 Accuracy: 0.576
+Rejection 80 %: 	 Accuracy: 0.589
+Rejection 85 %: 	 Accuracy: 0.5973333333333334
+Rejection 90 %: 	 Accuracy: 0.632
+Rejection 95 %: 	 Accuracy: 0.652
+Spearman corrleation 1.0
+Loading Flickr Caption: n_captions 148915...
+Loading Flickr Caption: n_captions 5000...
+Loading Flickr Caption: n_captions 5000...
+  0%|          | 0/79 [00:00<?, ?it/s]  1%|▏         | 1/79 [00:00<01:17,  1.01it/s]  5%|▌         | 4/79 [00:01<00:16,  4.47it/s]  9%|▉         | 7/79 [00:01<00:09,  7.92it/s] 13%|█▎        | 10/79 [00:01<00:06, 11.14it/s] 16%|█▋        | 13/79 [00:01<00:04, 13.97it/s] 20%|██        | 16/79 [00:01<00:03, 16.32it/s] 24%|██▍       | 19/79 [00:01<00:03, 18.22it/s] 28%|██▊       | 22/79 [00:01<00:02, 19.62it/s] 32%|███▏      | 25/79 [00:02<00:02, 20.73it/s] 35%|███▌      | 28/79 [00:02<00:02, 21.53it/s] 39%|███▉      | 31/79 [00:02<00:02, 22.10it/s] 43%|████▎     | 34/79 [00:02<00:01, 22.54it/s] 47%|████▋     | 37/79 [00:02<00:01, 22.85it/s] 51%|█████     | 40/79 [00:02<00:01, 23.09it/s] 54%|█████▍    | 43/79 [00:02<00:01, 23.26it/s] 58%|█████▊    | 46/79 [00:02<00:01, 23.34it/s] 62%|██████▏   | 49/79 [00:03<00:01, 23.41it/s] 66%|██████▌   | 52/79 [00:03<00:01, 23.55it/s] 70%|██████▉   | 55/79 [00:03<00:01, 23.63it/s] 73%|███████▎  | 58/79 [00:03<00:00, 23.77it/s] 77%|███████▋  | 61/79 [00:03<00:00, 23.84it/s] 81%|████████  | 64/79 [00:03<00:00, 23.90it/s] 85%|████████▍ | 67/79 [00:03<00:00, 23.91it/s] 89%|████████▊ | 70/79 [00:03<00:00, 23.97it/s] 92%|█████████▏| 73/79 [00:04<00:00, 24.00it/s] 96%|█████████▌| 76/79 [00:04<00:00, 24.03it/s]100%|██████████| 79/79 [00:04<00:00, 25.44it/s]100%|██████████| 79/79 [00:04<00:00, 18.28it/s]
+Rejection 0 %: 	 Accuracy: 0.492
+Rejection 5 %: 	 Accuracy: 0.5092631578947369
+Rejection 10 %: 	 Accuracy: 0.5235555555555556
+Rejection 15 %: 	 Accuracy: 0.5367058823529411
+Rejection 20 %: 	 Accuracy: 0.5425
+Rejection 25 %: 	 Accuracy: 0.5528
+Rejection 30 %: 	 Accuracy: 0.5588571428571428
+Rejection 35 %: 	 Accuracy: 0.5692307692307692
+Rejection 40 %: 	 Accuracy: 0.5756666666666667
+Rejection 45 %: 	 Accuracy: 0.5854545454545454
+Rejection 50 %: 	 Accuracy: 0.5956
+Rejection 55 %: 	 Accuracy: 0.6088888888888889
+Rejection 60 %: 	 Accuracy: 0.6135
+Rejection 65 %: 	 Accuracy: 0.6182857142857143
+Rejection 70 %: 	 Accuracy: 0.6213333333333333
+Rejection 75 %: 	 Accuracy: 0.6328
+Rejection 80 %: 	 Accuracy: 0.629
+Rejection 85 %: 	 Accuracy: 0.624
+Rejection 90 %: 	 Accuracy: 0.644
+Rejection 95 %: 	 Accuracy: 0.628
+Spearman corrleation 0.9819548872180449
